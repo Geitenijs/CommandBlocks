@@ -1,0 +1,42 @@
+name: CommandBlocks
+version: 1.1.7
+api-version: 1.13
+description: Assign commands to blocks, and let everyone use them!
+author: Geitenijs
+website: https://www.spigotmc.org/resources/62720
+load: POSTWORLD
+
+softdepend: [Multiverse-Core, MultiWorld, My_Worlds]
+
+main: com.geitenijs.commandblocks.Main
+
+commands:
+  commandblocks:
+    description: Assign commands to blocks.
+  cb:
+    description: Assign commands to blocks.
+
+permissions:
+  commandblocks.help:
+    default: op
+  commandblocks.reload:
+    default: op
+  commandblocks.list:
+    default: op
+  commandblocks.create:
+    default: op
+  commandblocks.remove:
+    default: op
+  commandblocks.use:
+    default: op
+  commandblocks.notify.update:
+    default: op
+  commandblocks.*:
+    children:
+      commandblocks.help: true
+      commandblocks.reload: true
+      commandblocks.list: true
+      commandblocks.create: true
+      commandblocks.remove: true
+      commandblocks.use: true
+      commandblocks.notify.update: true
