@@ -1,10 +1,10 @@
 package com.geitenijs.commandblocks.updatechecker;
 
+import com.geitenijs.commandblocks.Strings;
+import com.geitenijs.commandblocks.Utilities;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Resources;
 import com.google.common.net.HttpHeaders;
-import com.geitenijs.commandblocks.Strings;
-import com.geitenijs.commandblocks.Utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
