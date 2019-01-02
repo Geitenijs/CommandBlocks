@@ -154,7 +154,7 @@ public class Utilities {
 
     static void startMetrics() {
         Metrics metrics = new Metrics(Main.plugin);
-        metrics.addCustomChart(new Metrics.SingleLineChart("definedCommandBlocks", () -> Utilities.blocks.getKeys(false).size()));
+        metrics.addCustomChart(new Metrics.SingleLineChart("definedCommandBlocks", () -> blocks.getKeys(false).size()));
         metrics.addCustomChart(new Metrics.SimplePie("debugEnabled", () -> config.getString("general.debug")));
         metrics.addCustomChart(new Metrics.SimplePie("updateCheckEnabled", () -> config.getString("updates.check")));
         metrics.addCustomChart(new Metrics.SimplePie("updateNotificationEnabled", () -> config.getString("updates.notify")));
@@ -165,7 +165,7 @@ public class Utilities {
     }
 
     private static void checkForUpdates() {
-        if (Utilities.config.getBoolean("updates.check")) {
+        if (config.getBoolean("updates.check")) {
             UpdateCheck
                     .of(Main.plugin)
                     .resourceId(Strings.RESOURCEID)
