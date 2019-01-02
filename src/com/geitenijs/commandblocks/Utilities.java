@@ -217,7 +217,7 @@ public class Utilities {
 
     public static void reloadBlocksFile() {
         if (blocksFile == null) {
-            blocksFile = new File(Main.plugin.getDataFolder(), "data.yml");
+            blocksFile = new File(Main.plugin.getDataFolder(), "blocks.yml");
         }
         blocks = YamlConfiguration.loadConfiguration(blocksFile);
     }
