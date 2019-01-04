@@ -43,69 +43,96 @@ public class CommandWrapper implements CommandExecutor, TabCompleter {
     static ArrayList<String> filterTabs(ArrayList<String> list, String[] origArgs) {
         if (origArgs.length == 0)
             return list;
-
         Iterator<String> itel = list.iterator();
         String label = origArgs[origArgs.length - 1].toLowerCase();
-
         while (itel.hasNext()) {
             String name = itel.next();
-
             if (name.toLowerCase().startsWith(label))
                 continue;
-
             itel.remove();
         }
-
         return list;
     }
 
     static String[] getArgs(String[] args) {
         ArrayList<String> newArgs = new ArrayList<>();
-
         for (int i = 0; i < args.length - 1; i++) {
             String s = args[i];
-
             if (s.trim().isEmpty())
                 continue;
-
             newArgs.add(s);
         }
-
         return newArgs.toArray(new String[0]);
     }
 
     public boolean onCommand(final CommandSender s, final Command c, final String label, final String[] args) {
-        if (args.length == 0) {
-            return MainCommand.onCommand(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("help")) {
-            return HelpCommand.onCommand(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("reload")) {
-            return ReloadCommand.onCommand(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("list")) {
-            return ListCommand.onCommand(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("create")) {
-            return CreateCommand.onCommand(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("remove")) {
-            return RemoveCommand.onCommand(s, c, label, args);
-        } else {
-            Utilities.msg(s, Strings.GAMEPREFIX + "&cThat command does not exist.");
+        if (c.getName().equalsIgnoreCase("commandblocks") || c.getName().equalsIgnoreCase("cb")) {
+            if (args.length == 0) {
+                return MainCommand.onCommand(s, c, label, args);
+            } else if (args[0].equalsIgnoreCase("help")) {
+                if (s.hasPermission("commandblocks.help")) {
+                    return HelpCommand.onCommand(s, c, label, args);
+                } else {
+                    Utilities.msg(s, Strings.NOPERM);
+                }
+            } else if (args[0].equalsIgnoreCase("reload")) {
+                if (s.hasPermission("commandblocks.reload")) {
+                    return ReloadCommand.onCommand(s, c, label, args);
+                } else {
+                    Utilities.msg(s, Strings.NOPERM);
+                }
+            } else if (args[0].equalsIgnoreCase("list")) {
+                if (s.hasPermission("commandblocks.list")) {
+                    return ListCommand.onCommand(s, c, label, args);
+                } else {
+                    Utilities.msg(s, Strings.NOPERM);
+                }
+            } else if (args[0].equalsIgnoreCase("create")) {
+                if (s.hasPermission("commandblocks.create")) {
+                    return CreateCommand.onCommand(s, c, label, args);
+                } else {
+                    Utilities.msg(s, Strings.NOPERM);
+                }
+            } else if (args[0].equalsIgnoreCase("remove")) {
+                if (s.hasPermission("commandblocks.remove")) {
+                    return RemoveCommand.onCommand(s, c, label, args);
+                } else {
+                    Utilities.msg(s, Strings.NOPERM);
+                }
+            } else {
+                Utilities.msg(s, Strings.GAMEPREFIX + "&cThat command does not exist.");
+            }
         }
         return true;
     }
 
     public List<String> onTabComplete(CommandSender s, Command c, String label, String[] args) {
-        if (args.length == 1) {
-            return MainTab.onTabComplete(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("help")) {
-            return HelpTab.onTabComplete(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("reload")) {
-            return ReloadTab.onTabComplete(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("list")) {
-            return ListTab.onTabComplete(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("create")) {
-            return CreateTab.onTabComplete(s, c, label, args);
-        } else if (args[0].equalsIgnoreCase("remove")) {
-            return RemoveTab.onTabComplete(s, c, label, args);
+        if (c.getName().equalsIgnoreCase("commandblocks") || c.getName().equalsIgnoreCase("cb")) {
+            if (args.length == 1) {
+                if (s.hasPermission("commandblocks.help")) {
+                    return MainTab.onTabComplete(s, c, label, args);
+                }
+            } else if (args[0].equalsIgnoreCase("help")) {
+                if (s.hasPermission("commandblocks.help")) {
+                    return HelpTab.onTabComplete(s, c, label, args);
+                }
+            } else if (args[0].equalsIgnoreCase("reload")) {
+                if (s.hasPermission("commandblocks.reload")) {
+                    return ReloadTab.onTabComplete(s, c, label, args);
+                }
+            } else if (args[0].equalsIgnoreCase("list")) {
+                if (s.hasPermission("commandblocks.list")) {
+                    return ListTab.onTabComplete(s, c, label, args);
+                }
+            } else if (args[0].equalsIgnoreCase("create")) {
+                if (s.hasPermission("commandblocks.create")) {
+                    return CreateTab.onTabComplete(s, c, label, args);
+                }
+            } else if (args[0].equalsIgnoreCase("remove")) {
+                if (s.hasPermission("commandblocks.remove")) {
+                    return RemoveTab.onTabComplete(s, c, label, args);
+                }
+            }
         }
         return null;
     }

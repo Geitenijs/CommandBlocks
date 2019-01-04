@@ -31,12 +31,3 @@ permissions:
     default: op
   commandblocks.notify.update:
     default: op
-  commandblocks.*:
-    children:
-      commandblocks.help: true
-      commandblocks.reload: true
-      commandblocks.list: true
-      commandblocks.create: true
-      commandblocks.remove: true
-      commandblocks.use: true
-      commandblocks.notify.update: true

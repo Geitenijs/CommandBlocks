@@ -13,33 +13,21 @@ import java.util.List;
 public class Command_Help implements CommandExecutor, TabCompleter {
 
     public boolean onCommand(final CommandSender s, final Command c, final String label, final String[] args) {
-
-        if (args[0].equalsIgnoreCase("help")) {
-            if (s.hasPermission("commandblocks.help")) {
-                if (args.length == 1) {
-                    Utilities.msg(s, "&8/&acb help  &7-&f  Shows this list");
-                    Utilities.msg(s, "&8/&acb reload  &7-&f  Reload the plugin");
-                    Utilities.msg(s, "&8/&acb list  &7-&f  List all CommandBlocks");
-                    Utilities.msg(s, "&8/&acb create  &7-&f  Create a CommandBlock");
-                    Utilities.msg(s, "&8/&acb remove  &7-&f  Remove a CommandBlock");
-                } else {
-                    Utilities.msg(s, Strings.HELPUSAGE);
-                }
-            } else {
-                Utilities.msg(s, Strings.NOPERM);
-            }
+        if (args.length == 1) {
+            Utilities.msg(s, "&8/&acb help  &7-&f  Shows this list");
+            Utilities.msg(s, "&8/&acb reload  &7-&f  Reload the plugin");
+            Utilities.msg(s, "&8/&acb list  &7-&f  List all CommandBlocks");
+            Utilities.msg(s, "&8/&acb create  &7-&f  Create a CommandBlock");
+            Utilities.msg(s, "&8/&acb remove  &7-&f  Remove a CommandBlock");
+        } else {
+            Utilities.msg(s, Strings.HELPUSAGE);
         }
         return true;
     }
 
     public List<String> onTabComplete(CommandSender s, Command c, String label, String[] args) {
         ArrayList<String> tabs = new ArrayList<>();
-        if (args[0].equals("help")) {
-            if (s.hasPermission("commandblocks.help")) {
-                tabs.clear();
-            }
-            return CommandWrapper.filterTabs(tabs, args);
-        }
-        return null;
+        tabs.clear();
+        return CommandWrapper.filterTabs(tabs, args);
     }
 }

@@ -13,24 +13,17 @@ import java.util.List;
 public class Command_Remove implements CommandExecutor, TabCompleter {
 
     public boolean onCommand(final CommandSender s, final Command c, final String label, final String[] args) {
-
-        if (args[0].equalsIgnoreCase("remove")) {
-            if (s.hasPermission("commandblocks.remove")) {
-                if (args.length == 2) {
-                    if (Utilities.blocks.getConfigurationSection(args[1]) != null) {
-                        Utilities.blocks.set(args[1], null);
-                        Utilities.saveBlocksFile();
-                        Utilities.reloadBlocksFile();
-                        Utilities.msg(s, "&fSuccessfully deleted CommandBlock &6'" + args[1] + "'&f.");
-                    } else {
-                        Utilities.msg(s, "&cNo CommandBlock with that name could be found.");
-                    }
-                } else {
-                    Utilities.msg(s, Strings.REMOVEUSAGE);
-                }
+        if (args.length == 2) {
+            if (Utilities.blocks.getConfigurationSection(args[1]) != null) {
+                Utilities.blocks.set(args[1], null);
+                Utilities.saveBlocksFile();
+                Utilities.reloadBlocksFile();
+                Utilities.msg(s, "&fSuccessfully deleted CommandBlock &6'" + args[1] + "'&f.");
             } else {
-                Utilities.msg(s, Strings.NOPERM);
+                Utilities.msg(s, "&cNo CommandBlock with that name could be found.");
             }
+        } else {
+            Utilities.msg(s, Strings.REMOVEUSAGE);
         }
         return true;
     }
@@ -38,14 +31,9 @@ public class Command_Remove implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender s, Command c, String label, String[] args) {
         ArrayList<String> tabs = new ArrayList<>();
         String[] newArgs = CommandWrapper.getArgs(args);
-        if (args[0].equals("remove")) {
-            if (s.hasPermission("commandblocks.remove")) {
-                if (newArgs.length == 1) {
-                    tabs.addAll(Utilities.blocks.getKeys(false));
-                }
-            }
-            return CommandWrapper.filterTabs(tabs, args);
+        if (newArgs.length == 1) {
+            tabs.addAll(Utilities.blocks.getKeys(false));
         }
-        return null;
+        return CommandWrapper.filterTabs(tabs, args);
     }
 }
