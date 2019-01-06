@@ -14,11 +14,12 @@ public class Command_Remove implements CommandExecutor, TabCompleter {
 
     public boolean onCommand(final CommandSender s, final Command c, final String label, final String[] args) {
         if (args.length == 2) {
-            if (Utilities.blocks.getConfigurationSection(args[1]) != null) {
-                Utilities.blocks.set(args[1], null);
+            final String name = args[1];
+            if (Utilities.blocks.getConfigurationSection(name) != null) {
+                Utilities.blocks.set(name, null);
                 Utilities.saveBlocksFile();
                 Utilities.reloadBlocksFile();
-                Utilities.msg(s, "&fSuccessfully deleted CommandBlock &6'" + args[1] + "'&f.");
+                Utilities.msg(s, "&fSuccessfully deleted CommandBlock &6'" + name + "'&f.");
             } else {
                 Utilities.msg(s, "&cNo CommandBlock with that name could be found.");
             }
