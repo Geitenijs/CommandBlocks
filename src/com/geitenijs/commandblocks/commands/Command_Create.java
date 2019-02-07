@@ -137,22 +137,20 @@ public class Command_Create implements CommandExecutor, TabCompleter {
             if (s instanceof Player) {
                 Player player = (Player) s;
                 Location loc = player.getLocation();
-                String locSerialized = loc.getWorld().getName() + "," + loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ();
-                String[] locString = locSerialized.split(",");
                 if (newArgs.length == 2) {
                     tabs.add("<name>");
                 }
                 if (newArgs.length == 3) {
-                    tabs.add(locString[1]);
+                    tabs.add(String.valueOf(loc.getBlockX()));
                 }
                 if (newArgs.length == 4) {
-                    tabs.add(locString[2]);
+                    tabs.add(String.valueOf(loc.getBlockY()));
                 }
                 if (newArgs.length == 5) {
-                    tabs.add(locString[3]);
+                    tabs.add(String.valueOf(loc.getBlockZ()));
                 }
                 if (newArgs.length == 6) {
-                    tabs.add(locString[0]);
+                    tabs.add(loc.getWorld().getName());
                 }
                 if (newArgs.length > 6) {
                     tabs.clear();
