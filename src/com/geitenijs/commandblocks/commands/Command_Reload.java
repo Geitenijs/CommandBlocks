@@ -25,7 +25,6 @@ public class Command_Reload implements CommandExecutor, TabCompleter {
 
     public List<String> onTabComplete(CommandSender s, Command c, String label, String[] args) {
         ArrayList<String> tabs = new ArrayList<>();
-        tabs.clear();
         return CommandWrapper.filterTabs(tabs, args);
     }
 }

@@ -10,6 +10,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import java.util.Objects;
+
 public class Events implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -20,6 +22,7 @@ public class Events implements Listener {
             if ((!Main.version.contains("v1_8_R1") && !Main.version.contains("v1_8_R2") && !Main.version.contains("v1_8_R3"))
                     && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 EquipmentSlot es = e.getHand();
+                assert es != null;
                 if (es.equals(EquipmentSlot.OFF_HAND))
                     return;
             }
@@ -30,7 +33,7 @@ public class Events implements Listener {
                     blockLocation.getBlockZ() + "#" +
                     blockLocation.getWorld().getName();
             for (final String path : Utilities.blocks.getKeys(false)) {
-                if (Utilities.blocks.getString(path + ".location") != null && Utilities.blocks.getString(path + ".location").equals(convertedBlockLocation)) {
+                if (Utilities.blocks.getString(path + ".location") != null && Objects.equals(Utilities.blocks.getString(path + ".location"), convertedBlockLocation)) {
                     if (e.getPlayer().hasPermission(Utilities.blocks.getString(path + ".permission.value"))) {
                         Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
                             if (Utilities.timeouts.containsKey(path)) {

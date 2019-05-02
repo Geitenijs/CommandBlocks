@@ -30,6 +30,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                     } else {
                         block = p.getTargetBlock(null, 5);
                     }
+                    assert block != null;
                     String blockLocation = block.getLocation().getBlockX() + "#" +
                             block.getLocation().getBlockY() + "#" +
                             block.getLocation().getBlockZ() + "#" +
@@ -152,9 +153,6 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                 if (newArgs.length == 6) {
                     tabs.add(loc.getWorld().getName());
                 }
-                if (newArgs.length > 6) {
-                    tabs.clear();
-                }
             } else {
                 if (newArgs.length == 2) {
                     tabs.add("<name>");
@@ -170,9 +168,6 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                 }
                 if (newArgs.length == 6) {
                     tabs.add("<world>");
-                }
-                if (newArgs.length > 6) {
-                    tabs.clear();
                 }
             }
         }

@@ -22,6 +22,7 @@ public class Command_List implements CommandExecutor, TabCompleter {
             Utilities.msg(s, "&7---");
             for (final String key : Utilities.blocks.getKeys(false)) {
                 final String locString = Utilities.blocks.getString(key + ".location");
+                assert locString != null;
                 final String[] blockCoordinates = locString.split("#");
                 final int x = Integer.parseInt(blockCoordinates[0]);
                 final int y = Integer.parseInt(blockCoordinates[1]);
@@ -39,7 +40,6 @@ public class Command_List implements CommandExecutor, TabCompleter {
 
     public List<String> onTabComplete(CommandSender s, Command c, String label, String[] args) {
         ArrayList<String> tabs = new ArrayList<>();
-        tabs.clear();
         return CommandWrapper.filterTabs(tabs, args);
     }
 }
