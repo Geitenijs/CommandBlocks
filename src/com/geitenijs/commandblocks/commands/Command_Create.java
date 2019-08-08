@@ -76,8 +76,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                     final int z = Integer.parseInt(args[5]);
                     final String world = args[6];
                     if (Bukkit.getWorld(world) == null) {
-                        Utilities.msg(s,
-                                "&cWorld &f'" + world + "'&c doesn't exist, or isn't loaded in memory.");
+                        Utilities.msg(s, "&cWorld &f'" + world + "'&c doesn't exist, or isn't loaded in memory.");
                     } else {
                         World realWorld = Bukkit.getWorld(world);
                         Location loc = new Location(realWorld, x, y, z);

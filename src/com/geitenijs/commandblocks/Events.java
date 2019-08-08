@@ -19,8 +19,7 @@ public class Events implements Listener {
 
         if (((e.getClickedBlock() != null && e.getAction() == Action.RIGHT_CLICK_BLOCK) && (!e.getClickedBlock().getType().name().endsWith("_PLATE")))
                 || (((e.getAction() == Action.PHYSICAL)) && (e.getClickedBlock().getType().name().endsWith("_PLATE")))) {
-            if ((!Main.version.contains("v1_8_R1") && !Main.version.contains("v1_8_R2") && !Main.version.contains("v1_8_R3"))
-                    && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            if ((!Main.version.contains("v1_8_R1") && !Main.version.contains("v1_8_R2") && !Main.version.contains("v1_8_R3")) && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 EquipmentSlot es = e.getHand();
                 assert es != null;
                 if (es.equals(EquipmentSlot.OFF_HAND))
@@ -114,8 +113,7 @@ public class Events implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onUpdateAvailable(PlayerJoinEvent e) {
-        if ((e.getPlayer().hasPermission("commandblocks.notify.update")) && Utilities.config.getBoolean("updates.check") && Utilities.config.getBoolean("updates.notify")
-                && Utilities.updateAvailable()) {
+        if ((e.getPlayer().hasPermission("commandblocks.notify.update")) && Utilities.config.getBoolean("updates.check") && Utilities.config.getBoolean("updates.notify") && Utilities.updateAvailable()) {
             Bukkit.getScheduler().runTaskLaterAsynchronously(Main.plugin, () -> {
                 Utilities.msg(e.getPlayer(), Strings.GAMEPREFIX + "&fA new release of &a" + Strings.PLUGIN + "&f is available!");
                 Utilities.msg(e.getPlayer(), Strings.GAMEPREFIX + "&fCurrent version: &a" + Strings.VERSION + "&f; New version: &a" + Utilities.updateVersion() + "&f.");
