@@ -1,12 +1,10 @@
 name: CommandBlocks
-version: 1.1.11
+version: 1.2.0
 api-version: 1.13
-description: Assign commands to blocks, and let everyone use them!
+description: The most advanced plugin to assign commands to blocks!
 author: Geitenijs
 website: https://www.spigotmc.org/resources/62720
 load: POSTWORLD
-
-softdepend: [Multiverse-Core, MultiWorld, My_Worlds]
 
 main: com.geitenijs.commandblocks.Main
 
