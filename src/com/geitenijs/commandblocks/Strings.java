@@ -4,6 +4,7 @@ public class Strings {
 
     static final String PLUGIN = "CommandBlocks";
     static final String INTERNALPREFIX = "[CommandBlocks] ";
+    public static final String DEBUGPREFIX = "[DEBUG] ";
     public static final String GAMEPREFIX = "&cCommand&8Blocks &7// ";
     public static final String VERSION = "1.2.0";
     public static final String AUTHOR = "Geitenijs";
@@ -35,6 +36,15 @@ public class Strings {
             + "\n      - A list of commands to be executed by the player. Variables: {player}. Disable by setting 'player:' to '[]' and removing all entries."
             + "\n    messages:"
             + "\n    - A list of messages to be displayed to the player. Variables: {player}. Disable by setting 'messages:' to '[]' and removing all entries."
+            + "\n  cost"
+            + "\n    value: The required cost to use the CommandBlock. Set to '0' for no cost."
+            + "\n    commands:"
+            + "\n      console:"
+            + "\n      - A list of commands to be executed by the console. Variables: {player}, {cost}. Disable by setting 'console:' to '[]' and removing all entries."
+            + "\n      player:"
+            + "\n      - A list of commands to be executed by the player. Variables: {player}, {cost}. Disable by setting 'player:' to '[]' and removing all entries."
+            + "\n    messages:"
+            + "\n    - A list of messages to be displayed to the player. Variables: {player}, {cost}. Disable by setting 'messages:' to '[]' and removing all entries."
             + "\n  timeout"
             + "\n    value: A timeout for the CommandBlock. Set to '0' to disable."
             + "\n    commands:"
@@ -50,6 +60,12 @@ public class Strings {
     public static final String NOPERM = Strings.GAMEPREFIX + "&cYou don't have permission to do that.";
     public static final String UNUSABLE = "&cOne or more values you've entered are unusable.";
     public static final String ONLYPLAYER = "&cYou can only do that as an in-game player.";
+    public static final String NOVAULT = "&cThis requires you to have Vault installed.";
+    public static final String UPDATEVAULT = "&cThis requires you to have Vault version 1.7.0 or newer installed.";
+
+    static final String DEPENDENCIES_VAULT_COMPATIBLE = "Found a compatible version of Vault! (1.7.0+)";
+    static final String DEPENDENCIES_VAULT_INCOMPATIBLE = "The required version of Vault for " + Strings.PLUGIN + " v" + Strings.VERSION + " is 1.7.0 or newer.";
+    static final String DEPENDENCIES_VAULT_MISSING = "Vault plugin not found. " + Strings.PLUGIN + " will have reduced functionality.";
 
     public static final String HELPUSAGE = "&fUsage: &c/cb help";
     public static final String RELOADUSAGE = "&fUsage: &c/cb reload";

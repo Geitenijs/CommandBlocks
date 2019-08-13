@@ -50,6 +50,11 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                         Utilities.blocks.set(name + ".permission.commands.player", Utilities.config.getStringList("default.permission.commands.player"));
                         Utilities.blocks.set(name + ".permission.messages", Utilities.config.getStringList("default.permission.messages"));
 
+                        Utilities.blocks.set(name + ".cost.value", Utilities.config.getDouble("default.cost.value"));
+                        Utilities.blocks.set(name + ".cost.commands.console", Utilities.config.getStringList("default.cost.commands.console"));
+                        Utilities.blocks.set(name + ".cost.commands.player", Utilities.config.getStringList("default.cost.commands.player"));
+                        Utilities.blocks.set(name + ".cost.messages", Utilities.config.getStringList("default.cost.messages"));
+
                         Utilities.blocks.set(name + ".timeout.value", Utilities.config.getInt("default.timeout.value"));
                         Utilities.blocks.set(name + ".timeout.commands.console", Utilities.config.getStringList("default.timeout.commands.console"));
                         Utilities.blocks.set(name + ".timeout.commands.player", Utilities.config.getStringList("default.timeout.commands.player"));
@@ -100,6 +105,11 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             Utilities.blocks.set(name + ".permission.commands.console", Utilities.config.getStringList("default.permission.commands.console"));
                             Utilities.blocks.set(name + ".permission.commands.player", Utilities.config.getStringList("default.permission.commands.player"));
                             Utilities.blocks.set(name + ".permission.messages", Utilities.config.getStringList("default.permission.messages"));
+
+                            Utilities.blocks.set(name + ".cost.value", Utilities.config.getDouble("default.cost.value"));
+                            Utilities.blocks.set(name + ".cost.commands.console", Utilities.config.getStringList("default.cost.commands.console"));
+                            Utilities.blocks.set(name + ".cost.commands.player", Utilities.config.getStringList("default.cost.commands.player"));
+                            Utilities.blocks.set(name + ".cost.messages", Utilities.config.getStringList("default.cost.messages"));
 
                             Utilities.blocks.set(name + ".timeout.value", Utilities.config.getInt("default.timeout.value"));
                             Utilities.blocks.set(name + ".timeout.commands.console", Utilities.config.getStringList("default.timeout.commands.console"));

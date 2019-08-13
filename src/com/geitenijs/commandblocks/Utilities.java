@@ -77,6 +77,10 @@ public class Utilities {
         List<String> permissionCommandsPlayer = new ArrayList<>();
         List<String> permissionMessages = new ArrayList<>();
 
+        List<String> costCommandsConsole = new ArrayList<>();
+        List<String> costCommandsPlayer = new ArrayList<>();
+        List<String> costMessages = new ArrayList<>();
+
         List<String> timeoutCommandsConsole = new ArrayList<>();
         List<String> timeoutCommandsPlayer = new ArrayList<>();
         List<String> timeoutMessages = new ArrayList<>();
@@ -86,6 +90,8 @@ public class Utilities {
         successMessages.add("&aYou used a CommandBlock!");
 
         permissionMessages.add("&cYou don't have permission to do that.");
+
+        costMessages.add("&cYou don't have sufficient funds to do that.");
 
         timeoutMessages.add("&cPlease wait {time} seconds before doing that again.");
 
@@ -97,6 +103,11 @@ public class Utilities {
         config.addDefault("default.permission.commands.console", permissionCommandsConsole);
         config.addDefault("default.permission.commands.player", permissionCommandsPlayer);
         config.addDefault("default.permission.messages", permissionMessages);
+
+        config.addDefault("default.cost.value", 10D);
+        config.addDefault("default.cost.commands.console", costCommandsConsole);
+        config.addDefault("default.cost.commands.player", costCommandsPlayer);
+        config.addDefault("default.cost.messages", costMessages);
 
         config.addDefault("default.timeout.value", 5);
         config.addDefault("default.timeout.commands.console", timeoutCommandsConsole);

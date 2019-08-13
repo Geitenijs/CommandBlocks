@@ -6,6 +6,8 @@ author: Geitenijs
 website: https://www.spigotmc.org/resources/62720
 load: POSTWORLD
 
+softdepend: [Vault]
+
 main: com.geitenijs.commandblocks.Main
 
 commands:
@@ -26,6 +28,8 @@ permissions:
   commandblocks.remove:
     default: op
   commandblocks.use:
+    default: op
+  commandblocks.cost.free:
     default: op
   commandblocks.notify.update:
     default: op

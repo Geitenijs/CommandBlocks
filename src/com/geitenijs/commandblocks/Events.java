@@ -27,10 +27,7 @@ public class Events implements Listener {
             }
 
             Location blockLocation = e.getClickedBlock().getLocation();
-            String convertedBlockLocation = blockLocation.getBlockX() + "#" +
-                    blockLocation.getBlockY() + "#" +
-                    blockLocation.getBlockZ() + "#" +
-                    blockLocation.getWorld().getName();
+            String convertedBlockLocation = blockLocation.getBlockX() + "#" + blockLocation.getBlockY() + "#" + blockLocation.getBlockZ() + "#" + blockLocation.getWorld().getName();
             for (final String path : Utilities.blocks.getKeys(false)) {
                 if (Utilities.blocks.getString(path + ".location") != null && Objects.equals(Utilities.blocks.getString(path + ".location"), convertedBlockLocation)) {
                     if (e.getPlayer().hasPermission(Utilities.blocks.getString(path + ".permission.value"))) {
@@ -61,6 +58,39 @@ public class Events implements Listener {
                                     }
                                 }
                                 return;
+                            }
+
+                            if (Utilities.blocks.getDouble(path + ".cost.value") != 0) {
+                                if (!e.getPlayer().hasPermission("commandblocks.cost.free")) {
+                                    if (Hooks.Vault) {
+                                        if (!Utilities.blocks.getStringList(path + ".cost.commands.console").isEmpty()) {
+                                            for (String costCommandsConsole : Utilities.blocks.getStringList(path + ".cost.commands.console")) {
+                                                costCommandsConsole = costCommandsConsole.replace("{player}", e.getPlayer().getName());
+                                                costCommandsConsole = costCommandsConsole.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
+                                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), costCommandsConsole);
+                                            }
+                                        }
+                                        if (!Utilities.blocks.getStringList(path + ".cost.commands.player").isEmpty()) {
+                                            for (String costCommandsPlayer : Utilities.blocks.getStringList(path + ".cost.commands.player")) {
+                                                costCommandsPlayer = costCommandsPlayer.replace("{player}", e.getPlayer().getName());
+                                                costCommandsPlayer = costCommandsPlayer.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
+                                                Bukkit.dispatchCommand(e.getPlayer(), costCommandsPlayer);
+                                            }
+                                        }
+                                        if (!Utilities.blocks.getString(path + ".cost.messages").isEmpty()) {
+                                            for (String costMessages : Utilities.blocks.getStringList(path + ".cost.messages")) {
+                                                costMessages = costMessages.replace("{player}", e.getPlayer().getName());
+                                                costMessages = costMessages.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
+                                                Utilities.msg(e.getPlayer(), costMessages);
+                                            }
+                                        }
+                                        Hooks.econ.withdrawPlayer(e.getPlayer(), Utilities.blocks.getDouble(path + ".cost.value"));
+                                    } else if (Hooks.incompatibleVault) {
+                                        Utilities.msg(e.getPlayer(), Strings.UPDATEVAULT);
+                                    } else {
+                                        Utilities.msg(e.getPlayer(), Strings.NOVAULT);
+                                    }
+                                }
                             }
 
                             if (!Utilities.blocks.getStringList(path + ".success.commands.console").isEmpty()) {
