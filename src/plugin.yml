@@ -30,6 +30,6 @@ permissions:
   commandblocks.use:
     default: op
   commandblocks.cost.free:
-    default: op
+    default: notop
   commandblocks.notify.update:
     default: op

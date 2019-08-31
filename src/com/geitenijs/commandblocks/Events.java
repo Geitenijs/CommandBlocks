@@ -63,25 +63,27 @@ public class Events implements Listener {
                             if (Utilities.blocks.getDouble(path + ".cost.value") != 0) {
                                 if (!e.getPlayer().hasPermission("commandblocks.cost.free")) {
                                     if (Hooks.Vault) {
-                                        if (!Utilities.blocks.getStringList(path + ".cost.commands.console").isEmpty()) {
-                                            for (String costCommandsConsole : Utilities.blocks.getStringList(path + ".cost.commands.console")) {
-                                                costCommandsConsole = costCommandsConsole.replace("{player}", e.getPlayer().getName());
-                                                costCommandsConsole = costCommandsConsole.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
-                                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), costCommandsConsole);
+                                        if (!Hooks.econ.has(e.getPlayer(), Utilities.blocks.getDouble(path + ".cost.value"))) {
+                                            if (!Utilities.blocks.getStringList(path + ".cost.commands.console").isEmpty()) {
+                                                for (String costCommandsConsole : Utilities.blocks.getStringList(path + ".cost.commands.console")) {
+                                                    costCommandsConsole = costCommandsConsole.replace("{player}", e.getPlayer().getName());
+                                                    costCommandsConsole = costCommandsConsole.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
+                                                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), costCommandsConsole);
+                                                }
                                             }
-                                        }
-                                        if (!Utilities.blocks.getStringList(path + ".cost.commands.player").isEmpty()) {
-                                            for (String costCommandsPlayer : Utilities.blocks.getStringList(path + ".cost.commands.player")) {
-                                                costCommandsPlayer = costCommandsPlayer.replace("{player}", e.getPlayer().getName());
-                                                costCommandsPlayer = costCommandsPlayer.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
-                                                Bukkit.dispatchCommand(e.getPlayer(), costCommandsPlayer);
+                                            if (!Utilities.blocks.getStringList(path + ".cost.commands.player").isEmpty()) {
+                                                for (String costCommandsPlayer : Utilities.blocks.getStringList(path + ".cost.commands.player")) {
+                                                    costCommandsPlayer = costCommandsPlayer.replace("{player}", e.getPlayer().getName());
+                                                    costCommandsPlayer = costCommandsPlayer.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
+                                                    Bukkit.dispatchCommand(e.getPlayer(), costCommandsPlayer);
+                                                }
                                             }
-                                        }
-                                        if (!Utilities.blocks.getString(path + ".cost.messages").isEmpty()) {
-                                            for (String costMessages : Utilities.blocks.getStringList(path + ".cost.messages")) {
-                                                costMessages = costMessages.replace("{player}", e.getPlayer().getName());
-                                                costMessages = costMessages.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
-                                                Utilities.msg(e.getPlayer(), costMessages);
+                                            if (!Utilities.blocks.getString(path + ".cost.messages").isEmpty()) {
+                                                for (String costMessages : Utilities.blocks.getStringList(path + ".cost.messages")) {
+                                                    costMessages = costMessages.replace("{player}", e.getPlayer().getName());
+                                                    costMessages = costMessages.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
+                                                    Utilities.msg(e.getPlayer(), costMessages);
+                                                }
                                             }
                                         }
                                         Hooks.econ.withdrawPlayer(e.getPlayer(), Utilities.blocks.getDouble(path + ".cost.value"));
@@ -96,18 +98,21 @@ public class Events implements Listener {
                             if (!Utilities.blocks.getStringList(path + ".success.commands.console").isEmpty()) {
                                 for (String successCommandsConsole : Utilities.blocks.getStringList(path + ".success.commands.console")) {
                                     successCommandsConsole = successCommandsConsole.replace("{player}", e.getPlayer().getName());
+                                    successCommandsConsole = successCommandsConsole.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
                                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), successCommandsConsole);
                                 }
                             }
                             if (!Utilities.blocks.getStringList(path + ".success.commands.player").isEmpty()) {
                                 for (String successCommandsPlayer : Utilities.blocks.getStringList(path + ".success.commands.player")) {
                                     successCommandsPlayer = successCommandsPlayer.replace("{player}", e.getPlayer().getName());
+                                    successCommandsPlayer = successCommandsPlayer.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
                                     Bukkit.dispatchCommand(e.getPlayer(), successCommandsPlayer);
                                 }
                             }
                             if (!Utilities.blocks.getString(path + ".success.messages").isEmpty()) {
                                 for (String successMessages : Utilities.blocks.getStringList(path + ".success.messages")) {
                                     successMessages = successMessages.replace("{player}", e.getPlayer().getName());
+                                    successMessages = successMessages.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
                                     Utilities.msg(e.getPlayer(), successMessages);
                                 }
                             }
@@ -120,18 +125,21 @@ public class Events implements Listener {
                         if (!Utilities.blocks.getStringList(path + ".permission.commands.console").isEmpty()) {
                             for (String permissionCommandsConsole : Utilities.blocks.getStringList(path + ".permission.commands.console")) {
                                 permissionCommandsConsole = permissionCommandsConsole.replace("{player}", e.getPlayer().getName());
+                                permissionCommandsConsole = permissionCommandsConsole.replace("{permission}", Utilities.blocks.getString(path + ".permission.value"));
                                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), permissionCommandsConsole);
                             }
                         }
                         if (!Utilities.blocks.getStringList(path + ".permission.commands.player").isEmpty()) {
                             for (String permissionCommandsPlayer : Utilities.blocks.getStringList(path + ".permission.commands.player")) {
                                 permissionCommandsPlayer = permissionCommandsPlayer.replace("{player}", e.getPlayer().getName());
+                                permissionCommandsPlayer = permissionCommandsPlayer.replace("{permission}", Utilities.blocks.getString(path + ".permission.value"));
                                 Bukkit.dispatchCommand(e.getPlayer(), permissionCommandsPlayer);
                             }
                         }
                         if (!Utilities.blocks.getString(path + ".permission.messages").isEmpty()) {
                             for (String permissionMessages : Utilities.blocks.getStringList(path + ".permission.messages")) {
                                 permissionMessages = permissionMessages.replace("{player}", e.getPlayer().getName());
+                                permissionMessages = permissionMessages.replace("{permission}", Utilities.blocks.getString(path + ".permission.value"));
                                 Utilities.msg(e.getPlayer(), permissionMessages);
                             }
                         }
