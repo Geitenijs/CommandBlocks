@@ -87,7 +87,7 @@ public class Utilities {
 
         successCommandsConsole.add("say {player} used a CommandBlock!");
         successCommandsPlayer.add("me I used a CommandBlock!");
-        successMessages.add("&aYou used a CommandBlock!");
+        successMessages.add("&aYou paid €{cost} in order to use this CommandBlock!");
 
         permissionMessages.add("&cYou don't have permission to do that.");
 
