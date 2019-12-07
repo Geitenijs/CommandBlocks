@@ -19,11 +19,10 @@ public class Events implements Listener {
 
         if (((e.getClickedBlock() != null && e.getAction() == Action.RIGHT_CLICK_BLOCK) && (!e.getClickedBlock().getType().name().endsWith("_PLATE")))
                 || (((e.getAction() == Action.PHYSICAL)) && (e.getClickedBlock().getType().name().endsWith("_PLATE")))) {
-            if ((!Main.version.contains("v1_8_R1") && !Main.version.contains("v1_8_R2") && !Main.version.contains("v1_8_R3")) && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                EquipmentSlot es = e.getHand();
-                assert es != null;
-                if (es.equals(EquipmentSlot.OFF_HAND))
-                    return;
+            EquipmentSlot es = e.getHand();
+            assert es != null;
+            if (es.equals(EquipmentSlot.OFF_HAND)) {
+                return;
             }
 
             Location blockLocation = e.getClickedBlock().getLocation();
