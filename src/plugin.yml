@@ -1,5 +1,5 @@
 name: CommandBlocks
-version: 1.2.0
+version: 1.2.1
 api-version: 1.13
 description: The most advanced plugin for assigning commands to blocks!
 author: Geitenijs
@@ -30,6 +30,6 @@ permissions:
   commandblocks.use:
     default: op
   commandblocks.cost.free:
-    default: notop
+    default: false
   commandblocks.notify.update:
     default: op

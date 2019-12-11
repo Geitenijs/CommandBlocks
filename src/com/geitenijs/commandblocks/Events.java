@@ -63,7 +63,10 @@ public class Events implements Listener {
                             }
 
                             if (Utilities.blocks.getDouble(path + ".cost.value") != 0) {
-                                if (!e.getPlayer().hasPermission("commandblocks.cost.free")) {
+                                if (e.getPlayer().hasPermission("commandblocks.cost.free")) {
+                                    passEco[0] = true;
+                                }
+                                if (!passEco[0]) {
                                     if (Hooks.Vault) {
                                         EconomyResponse r = Hooks.eco.withdrawPlayer(e.getPlayer(), Utilities.blocks.getDouble(path + ".cost.value"));
                                         if (r.transactionSuccess()) {
