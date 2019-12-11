@@ -10,7 +10,7 @@ class Hooks {
 
     static boolean Vault;
     static boolean incompatibleVault;
-    static Economy econ = null;
+    static Economy eco = null;
 
     static void registerHooks() {
         hookVault();
@@ -59,7 +59,7 @@ class Hooks {
         if (rsp == null) {
             return false;
         }
-        econ = rsp.getProvider();
-        return true;
+        eco = rsp.getProvider();
+        return eco != null;
     }
 }

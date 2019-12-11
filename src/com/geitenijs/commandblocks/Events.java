@@ -1,5 +1,6 @@
 package com.geitenijs.commandblocks;
 
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
@@ -17,16 +18,18 @@ public class Events implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onCommandBlockInteract(PlayerInteractEvent e) {
 
-        if (((e.getClickedBlock() != null && e.getAction() == Action.RIGHT_CLICK_BLOCK) && (!e.getClickedBlock().getType().name().endsWith("_PLATE")))
-                || (((e.getAction() == Action.PHYSICAL)) && (e.getClickedBlock().getType().name().endsWith("_PLATE")))) {
+        if (((e.getClickedBlock() != null && e.getAction() == Action.RIGHT_CLICK_BLOCK) && (!e.getClickedBlock().getType().name().endsWith("_PLATE"))) || (((e.getAction() == Action.PHYSICAL)) && (e.getClickedBlock().getType().name().endsWith("_PLATE")))) {
             EquipmentSlot es = e.getHand();
             assert es != null;
-            if (es.equals(EquipmentSlot.OFF_HAND)) {
-                return;
+            if (!(((e.getAction() == Action.PHYSICAL)) && (e.getClickedBlock().getType().name().endsWith("_PLATE")))) {
+                if (es.equals(EquipmentSlot.OFF_HAND)) {
+                    return;
+                }
             }
 
             Location blockLocation = e.getClickedBlock().getLocation();
             String convertedBlockLocation = blockLocation.getBlockX() + "#" + blockLocation.getBlockY() + "#" + blockLocation.getBlockZ() + "#" + blockLocation.getWorld().getName();
+            final boolean[] passEco = {false};
             for (final String path : Utilities.blocks.getKeys(false)) {
                 if (Utilities.blocks.getString(path + ".location") != null && Objects.equals(Utilities.blocks.getString(path + ".location"), convertedBlockLocation)) {
                     if (e.getPlayer().hasPermission(Utilities.blocks.getString(path + ".permission.value"))) {
@@ -62,7 +65,10 @@ public class Events implements Listener {
                             if (Utilities.blocks.getDouble(path + ".cost.value") != 0) {
                                 if (!e.getPlayer().hasPermission("commandblocks.cost.free")) {
                                     if (Hooks.Vault) {
-                                        if (!Hooks.econ.has(e.getPlayer(), Utilities.blocks.getDouble(path + ".cost.value"))) {
+                                        EconomyResponse r = Hooks.eco.withdrawPlayer(e.getPlayer(), Utilities.blocks.getDouble(path + ".cost.value"));
+                                        if (r.transactionSuccess()) {
+                                            passEco[0] = true;
+                                        } else {
                                             if (!Utilities.blocks.getStringList(path + ".cost.commands.console").isEmpty()) {
                                                 for (String costCommandsConsole : Utilities.blocks.getStringList(path + ".cost.commands.console")) {
                                                     costCommandsConsole = costCommandsConsole.replace("{player}", e.getPlayer().getName());
@@ -85,34 +91,37 @@ public class Events implements Listener {
                                                 }
                                             }
                                         }
-                                        Hooks.econ.withdrawPlayer(e.getPlayer(), Utilities.blocks.getDouble(path + ".cost.value"));
                                     } else if (Hooks.incompatibleVault) {
                                         Utilities.msg(e.getPlayer(), Strings.UPDATEVAULT);
                                     } else {
                                         Utilities.msg(e.getPlayer(), Strings.NOVAULT);
                                     }
                                 }
+                            } else {
+                                passEco[0] = true;
                             }
 
-                            if (!Utilities.blocks.getStringList(path + ".success.commands.console").isEmpty()) {
-                                for (String successCommandsConsole : Utilities.blocks.getStringList(path + ".success.commands.console")) {
-                                    successCommandsConsole = successCommandsConsole.replace("{player}", e.getPlayer().getName());
-                                    successCommandsConsole = successCommandsConsole.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
-                                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), successCommandsConsole);
+                            if (passEco[0]) {
+                                if (!Utilities.blocks.getStringList(path + ".success.commands.console").isEmpty()) {
+                                    for (String successCommandsConsole : Utilities.blocks.getStringList(path + ".success.commands.console")) {
+                                        successCommandsConsole = successCommandsConsole.replace("{player}", e.getPlayer().getName());
+                                        successCommandsConsole = successCommandsConsole.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
+                                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), successCommandsConsole);
+                                    }
                                 }
-                            }
-                            if (!Utilities.blocks.getStringList(path + ".success.commands.player").isEmpty()) {
-                                for (String successCommandsPlayer : Utilities.blocks.getStringList(path + ".success.commands.player")) {
-                                    successCommandsPlayer = successCommandsPlayer.replace("{player}", e.getPlayer().getName());
-                                    successCommandsPlayer = successCommandsPlayer.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
-                                    Bukkit.dispatchCommand(e.getPlayer(), successCommandsPlayer);
+                                if (!Utilities.blocks.getStringList(path + ".success.commands.player").isEmpty()) {
+                                    for (String successCommandsPlayer : Utilities.blocks.getStringList(path + ".success.commands.player")) {
+                                        successCommandsPlayer = successCommandsPlayer.replace("{player}", e.getPlayer().getName());
+                                        successCommandsPlayer = successCommandsPlayer.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
+                                        Bukkit.dispatchCommand(e.getPlayer(), successCommandsPlayer);
+                                    }
                                 }
-                            }
-                            if (!Utilities.blocks.getString(path + ".success.messages").isEmpty()) {
-                                for (String successMessages : Utilities.blocks.getStringList(path + ".success.messages")) {
-                                    successMessages = successMessages.replace("{player}", e.getPlayer().getName());
-                                    successMessages = successMessages.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
-                                    Utilities.msg(e.getPlayer(), successMessages);
+                                if (!Utilities.blocks.getString(path + ".success.messages").isEmpty()) {
+                                    for (String successMessages : Utilities.blocks.getStringList(path + ".success.messages")) {
+                                        successMessages = successMessages.replace("{player}", e.getPlayer().getName());
+                                        successMessages = successMessages.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
+                                        Utilities.msg(e.getPlayer(), successMessages);
+                                    }
                                 }
                             }
 
