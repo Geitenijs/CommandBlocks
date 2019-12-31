@@ -22,7 +22,7 @@ class Hooks {
             Vault = false;
             incompatibleVault = false;
             if (Utilities.config.getBoolean("general.debug")) {
-                Utilities.consoleMsgPrefixed(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_MISSING);
+                Utilities.consoleMsg(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_MISSING);
             }
             return;
         }
@@ -34,7 +34,7 @@ class Hooks {
             Vault = false;
             incompatibleVault = true;
             if (Utilities.config.getBoolean("general.debug")) {
-                Utilities.consoleMsgPrefixed(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_INCOMPATIBLE);
+                Utilities.consoleMsg(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_INCOMPATIBLE);
             }
             return;
         }
@@ -42,14 +42,14 @@ class Hooks {
             Vault = true;
             incompatibleVault = false;
             if (Utilities.config.getBoolean("general.debug")) {
-                Utilities.consoleMsgPrefixed(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_COMPATIBLE);
+                Utilities.consoleMsg(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_COMPATIBLE);
             }
             setupEconomy();
         } else {
             Vault = false;
             incompatibleVault = true;
             if (Utilities.config.getBoolean("general.debug")) {
-                Utilities.consoleMsgPrefixed(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_INCOMPATIBLE);
+                Utilities.consoleMsg(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_INCOMPATIBLE);
             }
         }
     }

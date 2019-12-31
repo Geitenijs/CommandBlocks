@@ -82,47 +82,46 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                     final String world = args[6];
                     if (Bukkit.getWorld(world) == null) {
                         Utilities.msg(s, "&cWorld &f'" + world + "'&c doesn't exist, or isn't loaded in memory.");
-                    } else {
-                        World realWorld = Bukkit.getWorld(world);
-                        Location loc = new Location(realWorld, x, y, z);
-                        Block block = loc.getBlock();
-
-                        String blockLocation = block.getLocation().getBlockX() + "#" +
-                                block.getLocation().getBlockY() + "#" +
-                                block.getLocation().getBlockZ() + "#" +
-                                block.getLocation().getWorld().getName();
-                        if (Utilities.blocks.getConfigurationSection(name) != null || Utilities.blocks.contains(blockLocation)) {
-                            Utilities.msg(s, "&cA CommandBlock with that name already exists.");
-                            return false;
-                        } else {
-                            Utilities.blocks.set(name + ".location", blockLocation);
-
-                            Utilities.blocks.set(name + ".success.commands.console", Utilities.config.getStringList("default.success.commands.console"));
-                            Utilities.blocks.set(name + ".success.commands.player", Utilities.config.getStringList("default.success.commands.player"));
-                            Utilities.blocks.set(name + ".success.messages", Utilities.config.getStringList("default.success.messages"));
-
-                            Utilities.blocks.set(name + ".permission.value", Utilities.config.getString("default.permission.value"));
-                            Utilities.blocks.set(name + ".permission.commands.console", Utilities.config.getStringList("default.permission.commands.console"));
-                            Utilities.blocks.set(name + ".permission.commands.player", Utilities.config.getStringList("default.permission.commands.player"));
-                            Utilities.blocks.set(name + ".permission.messages", Utilities.config.getStringList("default.permission.messages"));
-
-                            Utilities.blocks.set(name + ".cost.value", Utilities.config.getDouble("default.cost.value"));
-                            Utilities.blocks.set(name + ".cost.commands.console", Utilities.config.getStringList("default.cost.commands.console"));
-                            Utilities.blocks.set(name + ".cost.commands.player", Utilities.config.getStringList("default.cost.commands.player"));
-                            Utilities.blocks.set(name + ".cost.messages", Utilities.config.getStringList("default.cost.messages"));
-
-                            Utilities.blocks.set(name + ".timeout.value", Utilities.config.getInt("default.timeout.value"));
-                            Utilities.blocks.set(name + ".timeout.commands.console", Utilities.config.getStringList("default.timeout.commands.console"));
-                            Utilities.blocks.set(name + ".timeout.commands.player", Utilities.config.getStringList("default.timeout.commands.player"));
-                            Utilities.blocks.set(name + ".timeout.messages", Utilities.config.getStringList("default.timeout.messages"));
-
-                            Utilities.blocks.set(name + ".delay.value", Utilities.config.getInt("default.delay.value"));
-
-                            Utilities.saveBlocksFile();
-                            Utilities.reloadBlocksFile();
-                            Utilities.msg(s, "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
-                        }
+                        return false;
                     }
+                    World realWorld = Bukkit.getWorld(world);
+                    Location loc = new Location(realWorld, x, y, z);
+                    Block block = loc.getBlock();
+
+                    String blockLocation = block.getLocation().getBlockX() + "#" +
+                            block.getLocation().getBlockY() + "#" +
+                            block.getLocation().getBlockZ() + "#" +
+                            block.getLocation().getWorld().getName();
+                    if (Utilities.blocks.getConfigurationSection(name) != null || Utilities.blocks.contains(blockLocation)) {
+                        Utilities.msg(s, "&cA CommandBlock with that name already exists.");
+                        return false;
+                    }
+                    Utilities.blocks.set(name + ".location", blockLocation);
+
+                    Utilities.blocks.set(name + ".success.commands.console", Utilities.config.getStringList("default.success.commands.console"));
+                    Utilities.blocks.set(name + ".success.commands.player", Utilities.config.getStringList("default.success.commands.player"));
+                    Utilities.blocks.set(name + ".success.messages", Utilities.config.getStringList("default.success.messages"));
+
+                    Utilities.blocks.set(name + ".permission.value", Utilities.config.getString("default.permission.value"));
+                    Utilities.blocks.set(name + ".permission.commands.console", Utilities.config.getStringList("default.permission.commands.console"));
+                    Utilities.blocks.set(name + ".permission.commands.player", Utilities.config.getStringList("default.permission.commands.player"));
+                    Utilities.blocks.set(name + ".permission.messages", Utilities.config.getStringList("default.permission.messages"));
+
+                    Utilities.blocks.set(name + ".cost.value", Utilities.config.getDouble("default.cost.value"));
+                    Utilities.blocks.set(name + ".cost.commands.console", Utilities.config.getStringList("default.cost.commands.console"));
+                    Utilities.blocks.set(name + ".cost.commands.player", Utilities.config.getStringList("default.cost.commands.player"));
+                    Utilities.blocks.set(name + ".cost.messages", Utilities.config.getStringList("default.cost.messages"));
+
+                    Utilities.blocks.set(name + ".timeout.value", Utilities.config.getInt("default.timeout.value"));
+                    Utilities.blocks.set(name + ".timeout.commands.console", Utilities.config.getStringList("default.timeout.commands.console"));
+                    Utilities.blocks.set(name + ".timeout.commands.player", Utilities.config.getStringList("default.timeout.commands.player"));
+                    Utilities.blocks.set(name + ".timeout.messages", Utilities.config.getStringList("default.timeout.messages"));
+
+                    Utilities.blocks.set(name + ".delay.value", Utilities.config.getInt("default.delay.value"));
+
+                    Utilities.saveBlocksFile();
+                    Utilities.reloadBlocksFile();
+                    Utilities.msg(s, "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
                 } catch (NumberFormatException ex) {
                     Utilities.msg(s, Strings.UNUSABLE);
                 }
