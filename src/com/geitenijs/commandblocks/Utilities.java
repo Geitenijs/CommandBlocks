@@ -136,7 +136,7 @@ public class Utilities {
         Bukkit.getPluginManager().registerEvents(new Events(), Main.plugin);
     }
 
-    static void startSchedulers() {
+    static void startTasks() {
         BukkitRunnable runnable = (new BukkitRunnable() {
             @Override
             public void run() {
@@ -152,7 +152,7 @@ public class Utilities {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, Utilities::checkForUpdates, 200L, 216000L);
     }
 
-    static void stopSchedulers() {
+    static void stopTasks() {
         Bukkit.getScheduler().cancelTasks(Main.plugin);
     }
 
