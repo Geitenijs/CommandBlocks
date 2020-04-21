@@ -15,7 +15,7 @@ public class Main extends JavaPlugin {
             Utilities.createConfigs();
             Utilities.registerCommandsAndCompletions();
             Utilities.registerEvents();
-            Utilities.startSchedulers();
+            Utilities.startTasks();
             Utilities.startMetrics();
             Utilities.done();
         } else {
@@ -26,10 +26,10 @@ public class Main extends JavaPlugin {
     }
 
     public void onDisable() {
+        Utilities.stopTasks();
         Utilities.reloadConfigFile();
         Utilities.saveConfigFile();
         Utilities.reloadBlocksFile();
         Utilities.saveBlocksFile();
-        Utilities.stopSchedulers();
     }
 }
