@@ -33,7 +33,7 @@ public class Utilities {
         blocks = YamlConfiguration.loadConfiguration(new File(Main.plugin.getDataFolder(), "blocks.yml"));
     }
 
-    static void startupText() {
+    static void pluginBanner() {
         consoleBanner("");
         consoleBanner("&c _______                                  _&8 ______  _             _          ");
         consoleBanner("&c(_______)                                | &8(____  \\| |           | |  &cv" + Strings.VERSION);
@@ -44,7 +44,7 @@ public class Utilities {
         consoleBanner("");
     }
 
-    static void errorText() {
+    static void errorBanner() {
         consoleBanner("");
         consoleBanner("&c _______ ______  ______ _______ ______  ");
         consoleBanner("&c(_______|_____ \\(_____ (_______|_____ \\ ");
