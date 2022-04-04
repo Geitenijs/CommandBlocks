@@ -9,14 +9,14 @@ public class Main extends JavaPlugin {
 
     public void onEnable() {
         Main.plugin = this;
-            Utilities.pluginBanner();
-            Hooks.registerHooks();
-            Utilities.createConfigs();
-            Utilities.registerCommandsAndCompletions();
-            Utilities.registerEvents();
-            Utilities.startTasks();
-            Utilities.startMetrics();
-            Utilities.done();
+        Hooks.registerHooks();
+        Utilities.createConfigs();
+        Utilities.registerCommandsAndCompletions();
+        Utilities.registerEvents();
+        Utilities.startTasks();
+        Utilities.startMetrics();
+        Utilities.pluginBanner();
+        Utilities.done();
     }
 
     public void onDisable() {

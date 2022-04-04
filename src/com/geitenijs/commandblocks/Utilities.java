@@ -34,14 +34,16 @@ public class Utilities {
     }
 
     static void pluginBanner() {
-        consoleBanner("");
-        consoleBanner("&c _______                                  _&8 ______  _             _          ");
-        consoleBanner("&c(_______)                                | &8(____  \\| |           | |  &cv" + Strings.VERSION);
-        consoleBanner("&c _       ___  ____  ____  _____ ____   __| &8|____)  ) | ___   ____| |  _  ___ ");
-        consoleBanner("&c| |     / _ \\|    \\|    \\(____ |  _ \\ / _  &8|  __  (| |/ _ \\ / ___) |_/ )/___)");
-        consoleBanner("&c| |____| |_| | | | | | | / ___ | | | ( (_| &8| |__)  ) | |_| ( (___|  _ (|___ |");
-        consoleBanner("&c \\______)___/|_|_|_|_|_|_\\_____|_| |_|\\____&8|______/ \\_)___/ \\____)_| \\_|___/ ");
-        consoleBanner("");
+        if (config.getBoolean("general.pluginbanner")) {
+            consoleBanner("");
+            consoleBanner("&c _______                                  _&8 ______  _             _          ");
+            consoleBanner("&c(_______)                                | &8(____  \\| |           | |  &cv" + Strings.VERSION);
+            consoleBanner("&c _       ___  ____  ____  _____ ____   __| &8|____)  ) | ___   ____| |  _  ___ ");
+            consoleBanner("&c| |     / _ \\|    \\|    \\(____ |  _ \\ / _  &8|  __  (| |/ _ \\ / ___) |_/ )/___)");
+            consoleBanner("&c| |____| |_| | | | | | | / ___ | | | ( (_| &8| |__)  ) | |_| ( (___|  _ (|___ |");
+            consoleBanner("&c \\______)___/|_|_|_|_|_|_\\_____|_| |_|\\____&8|______/ \\_)___/ \\____)_| \\_|___/ ");
+            consoleBanner("");
+        }
     }
 
     static void createConfigs() {
@@ -49,6 +51,7 @@ public class Utilities {
                 + "Copyright © " + Strings.COPYRIGHT + " " + Strings.AUTHOR + ", all rights reserved." +
                 "\nInformation & Support: " + Strings.WEBSITE
                 + "\n\ngeneral:"
+                + "\n  pluginbanner: Whether or not to display the fancy banner in your console on server startup."
                 + "\n  colourfulconsole: Console messages will be coloured when this is enabled."
                 + "\n  debug: When set to true, the plugin will log more information to the console."
                 + "\nupdates:"
@@ -56,6 +59,7 @@ public class Utilities {
                 + "\n  notify: Would you like to get an in-game reminder of a new update? Requires permission 'commandblocks.notify.update'."
                 + "\ndefault:"
                 + Strings.BLOCKDEFAULTS);
+        config.addDefault("general.pluginbanner", true);
         config.addDefault("general.colourfulconsole", true);
         config.addDefault("general.debug", false);
         config.addDefault("updates.check", true);
@@ -148,6 +152,7 @@ public class Utilities {
     static void startMetrics() {
         Metrics metrics = new Metrics(Main.plugin);
         metrics.addCustomChart(new Metrics.SingleLineChart("definedCommandBlocks", () -> blocks.getKeys(false).size()));
+        metrics.addCustomChart(new Metrics.SimplePie("pluginBannerEnabled", () -> config.getString("general.pluginbanner")));
         metrics.addCustomChart(new Metrics.SimplePie("colourfulConsoleEnabled", () -> config.getString("general.colourfulconsole")));
         metrics.addCustomChart(new Metrics.SimplePie("debugEnabled", () -> config.getString("general.debug")));
         metrics.addCustomChart(new Metrics.SimplePie("updateCheckEnabled", () -> config.getString("updates.check")));
