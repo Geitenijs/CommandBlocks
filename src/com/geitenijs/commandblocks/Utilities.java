@@ -48,7 +48,7 @@ public class Utilities {
 
     static void createConfigs() {
         config.options().header(Strings.ASCIILOGO
-                + "Copyright © " + Strings.COPYRIGHT + " " + Strings.AUTHOR + ", all rights reserved." +
+                + "Executing your commands since 2018! By " + Strings.AUTHOR +
                 "\nInformation & Support: " + Strings.WEBSITE
                 + "\n\ngeneral:"
                 + "\n  pluginbanner: Whether or not to display the fancy banner in your console on server startup."
@@ -103,7 +103,7 @@ public class Utilities {
         config.addDefault("default.delay.value", 0);
 
         blocks.options().header(Strings.ASCIILOGO
-                + "Copyright © " + Strings.COPYRIGHT + " " + Strings.AUTHOR + ", all rights reserved." +
+                + "Executing your commands since 2018! By " + Strings.AUTHOR +
                 "\nInformation & Support: " + Strings.WEBSITE
                 + "\n\nblock:"
                 + "\n  location: The location of the CommandBlock. Don't change this unless you know what you're doing!"

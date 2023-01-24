@@ -8,7 +8,6 @@ public class Strings {
     public static final String GAMEPREFIX = "&cCommand&8Blocks &7// ";
     public static final String VERSION = "1.2.9";
     public static final String AUTHOR = "Geitenijs";
-    public static final String COPYRIGHT = "2018-2022";
     static final int RESOURCEID = 62720;
     static final String WEBSITE = "https://www.spigotmc.org/resources/" + Strings.RESOURCEID;
     static final String ASCIILOGO = "" +
