@@ -12,18 +12,18 @@ import java.util.Iterator;
 import java.util.List;
 
 public class CommandWrapper implements CommandExecutor, TabCompleter {
-    private CommandExecutor MainCommand;
-    private CommandExecutor HelpCommand;
-    private CommandExecutor ReloadCommand;
-    private CommandExecutor ListCommand;
-    private CommandExecutor CreateCommand;
-    private CommandExecutor RemoveCommand;
-    private TabCompleter MainTab;
-    private TabCompleter HelpTab;
-    private TabCompleter ReloadTab;
-    private TabCompleter ListTab;
-    private TabCompleter CreateTab;
-    private TabCompleter RemoveTab;
+    private final CommandExecutor MainCommand;
+    private final CommandExecutor HelpCommand;
+    private final CommandExecutor ReloadCommand;
+    private final CommandExecutor ListCommand;
+    private final CommandExecutor CreateCommand;
+    private final CommandExecutor RemoveCommand;
+    private final TabCompleter MainTab;
+    private final TabCompleter HelpTab;
+    private final TabCompleter ReloadTab;
+    private final TabCompleter ListTab;
+    private final TabCompleter CreateTab;
+    private final TabCompleter RemoveTab;
 
     public CommandWrapper() {
         MainCommand = new Command_Main();

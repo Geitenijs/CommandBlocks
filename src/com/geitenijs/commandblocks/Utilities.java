@@ -23,12 +23,11 @@ public class Utilities {
 
     public static FileConfiguration config;
     public static FileConfiguration blocks;
+    static ConcurrentHashMap<String, Double> timeouts = new ConcurrentHashMap<>();
     private static File configFile = new File(Main.plugin.getDataFolder(), "config.yml");
     private static File blocksFile = new File(Main.plugin.getDataFolder(), "blocks.yml");
     private static boolean updateAvailable;
     private static String updateVersion;
-
-    static ConcurrentHashMap<String, Double> timeouts = new ConcurrentHashMap<>();
 
     static {
         config = YamlConfiguration.loadConfiguration(new File(Main.plugin.getDataFolder(), "config.yml"));

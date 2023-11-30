@@ -4,8 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
-    static Main plugin;
     public final static String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+    static Main plugin;
 
     public void onEnable() {
         Main.plugin = this;
