@@ -2,12 +2,14 @@ package com.geitenijs.commandblocks;
 
 import com.geitenijs.commandblocks.commands.CommandWrapper;
 import com.geitenijs.commandblocks.updatechecker.UpdateCheck;
+import net.milkbowl.vault.Vault;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
@@ -157,6 +159,14 @@ public class Utilities {
         metrics.addCustomChart(new Metrics.SimplePie("debugEnabled", () -> config.getString("general.debug")));
         metrics.addCustomChart(new Metrics.SimplePie("updateCheckEnabled", () -> config.getString("updates.check")));
         metrics.addCustomChart(new Metrics.SimplePie("updateNotificationEnabled", () -> config.getString("updates.notify")));
+        metrics.addCustomChart(new Metrics.SimplePie("vaultVersion", () -> {
+            final Plugin p = Bukkit.getPluginManager().getPlugin("Vault");
+            if (!(p instanceof Vault)) {
+                return Strings.NOSTAT;
+            } else {
+                return Bukkit.getServer().getPluginManager().getPlugin("Vault").getDescription().getVersion();
+            }
+        }));
     }
 
     static void done() {
@@ -177,11 +187,15 @@ public class Utilities {
                                 updateAvailable = true;
                                 break;
                             case LATEST:
-                                consoleMsg("You are running the latest version.");
+                                if (config.getBoolean("general.debug")) {
+                                    consoleMsg(Strings.DEBUGPREFIX + "You are running the latest version.");
+                                }
                                 updateAvailable = false;
                                 break;
                             case UNAVAILABLE:
-                                consoleMsg("An error occurred while checking for updates.");
+                                if (config.getBoolean("general.debug")) {
+                                    consoleMsg(Strings.DEBUGPREFIX + "An error occurred while checking for updates.");
+                                }
                                 updateAvailable = false;
                         }
                     }).check();

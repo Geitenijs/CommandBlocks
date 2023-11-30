@@ -32,7 +32,10 @@ public class Events implements Listener {
             final boolean[] passEco = {false};
             for (final String path : Utilities.blocks.getKeys(false)) {
                 if (Utilities.blocks.getString(path + ".location") != null && Objects.equals(Utilities.blocks.getString(path + ".location"), convertedBlockLocation)) {
-                    if (e.getPlayer().hasPermission(Utilities.blocks.getString(path + ".permission.value"))) {
+                    String permission = Utilities.blocks.getString(path + ".permission.value");
+                    if (permission == null) {
+                        Utilities.msg(e.getPlayer(), "&cFailed to execute CommandBlock, no permission defined.");
+                    } else if (e.getPlayer().hasPermission(permission)) {
                         Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
                             if (Utilities.timeouts.containsKey(path)) {
                                 double timeLeft = (Utilities.timeouts.get(path) / 20);
@@ -136,21 +139,21 @@ public class Events implements Listener {
                         if (!Utilities.blocks.getStringList(path + ".permission.commands.console").isEmpty()) {
                             for (String permissionCommandsConsole : Utilities.blocks.getStringList(path + ".permission.commands.console")) {
                                 permissionCommandsConsole = permissionCommandsConsole.replace("{player}", e.getPlayer().getName());
-                                permissionCommandsConsole = permissionCommandsConsole.replace("{permission}", Utilities.blocks.getString(path + ".permission.value"));
+                                permissionCommandsConsole = permissionCommandsConsole.replace("{permission}", permission);
                                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), permissionCommandsConsole);
                             }
                         }
                         if (!Utilities.blocks.getStringList(path + ".permission.commands.player").isEmpty()) {
                             for (String permissionCommandsPlayer : Utilities.blocks.getStringList(path + ".permission.commands.player")) {
                                 permissionCommandsPlayer = permissionCommandsPlayer.replace("{player}", e.getPlayer().getName());
-                                permissionCommandsPlayer = permissionCommandsPlayer.replace("{permission}", Utilities.blocks.getString(path + ".permission.value"));
+                                permissionCommandsPlayer = permissionCommandsPlayer.replace("{permission}", permission);
                                 Bukkit.dispatchCommand(e.getPlayer(), permissionCommandsPlayer);
                             }
                         }
                         if (!Utilities.blocks.getString(path + ".permission.messages").isEmpty()) {
                             for (String permissionMessages : Utilities.blocks.getStringList(path + ".permission.messages")) {
                                 permissionMessages = permissionMessages.replace("{player}", e.getPlayer().getName());
-                                permissionMessages = permissionMessages.replace("{permission}", Utilities.blocks.getString(path + ".permission.value"));
+                                permissionMessages = permissionMessages.replace("{permission}", permission);
                                 Utilities.msg(e.getPlayer(), permissionMessages);
                             }
                         }

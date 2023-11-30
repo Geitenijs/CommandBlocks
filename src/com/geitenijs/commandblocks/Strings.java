@@ -6,7 +6,7 @@ public class Strings {
     static final String INTERNALPREFIX = "[CommandBlocks] ";
     public static final String DEBUGPREFIX = "[DEBUG] ";
     public static final String GAMEPREFIX = "&cCommand&8Blocks &7// ";
-    public static final String VERSION = "1.2.9";
+    public static final String VERSION = "1.2.10";
     public static final String AUTHOR = "Geitenijs";
     static final int RESOURCEID = 62720;
     static final String WEBSITE = "https://www.spigotmc.org/resources/" + Strings.RESOURCEID;
@@ -18,7 +18,8 @@ public class Strings {
             "\n| |____| |_| | | | | | | / ___ | | | ( (_| | |__)  ) | |_| ( (___|  _ (|___ |" +
             "\n \\______)___/|_|_|_|_|_|_\\_____|_| |_|\\____|______/ \\_)___/ \\____)_| \\_|___/ " +
             "\n\n";
-    static final String BLOCKDEFAULTS = "\n  success:"
+    static final String BLOCKDEFAULTS =
+            "\n  success:"
             + "\n    commands:"
             + "\n      console:"
             + "\n      - A list of commands to be executed by the console. Variables: {player}, {cost}. Disable by setting 'console:' to '[]' and removing all entries."
@@ -27,7 +28,7 @@ public class Strings {
             + "\n    messages:"
             + "\n    - A list of messages to be displayed to the player. Variables: {player}, {cost}. Disable by setting 'messages:' to '[]' and removing all entries."
             + "\n  permission"
-            + "\n    value: The required permission to use the CommandBlock. Can NOT be disabled."
+            + "\n    value: The required permission to use the CommandBlock. Setting up a permission is always required, meaning this value cannot be left empty."
             + "\n    commands:"
             + "\n      console:"
             + "\n      - A list of commands to be executed by the console. Variables: {player}, {permission}. Disable by setting 'console:' to '[]' and removing all entries."
@@ -61,6 +62,8 @@ public class Strings {
     public static final String ONLYPLAYER = "&cYou can only do that as an in-game player.";
     public static final String NOVAULT = "&cThis requires you to have Vault installed.";
     public static final String UPDATEVAULT = "&cThis requires you to have Vault version 1.7.0 or newer installed.";
+
+    static final String NOSTAT = "None";
 
     static final String DEPENDENCIES_VAULT_COMPATIBLE = "Found a compatible version of Vault! (1.7.0+)";
     static final String DEPENDENCIES_VAULT_INCOMPATIBLE = "The required version of Vault for " + Strings.PLUGIN + " v" + Strings.VERSION + " is 1.7.0 or newer.";
