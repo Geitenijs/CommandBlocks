@@ -9,7 +9,6 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 class Hooks {
 
     static boolean Vault;
-    static boolean incompatibleVault;
     static Economy eco = null;
 
     static void registerHooks() {
@@ -20,10 +19,6 @@ class Hooks {
         final Plugin vaultPlugin = Bukkit.getPluginManager().getPlugin("Vault");
         if (!(vaultPlugin instanceof Vault)) {
             Vault = false;
-            incompatibleVault = false;
-            if (Utilities.config.getBoolean("general.debug")) {
-                Utilities.consoleMsg(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_MISSING);
-            }
             return;
         }
         String exactVaultVersion = Bukkit.getServer().getPluginManager().getPlugin("Vault").getDescription().getVersion();
@@ -32,25 +27,14 @@ class Hooks {
             vaultVersion = Integer.parseInt(exactVaultVersion.replace(".", "").substring(0, 3));
         } catch (Exception ex) {
             Vault = false;
-            incompatibleVault = true;
-            if (Utilities.config.getBoolean("general.debug")) {
-                Utilities.consoleMsg(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_INCOMPATIBLE);
-            }
+            Utilities.consoleMsg(Strings.INTERNALPREFIX + Strings.DEPENDENCIES_VAULT_INCOMPATIBLE);
             return;
         }
         if (vaultVersion >= 170) {
             Vault = true;
-            incompatibleVault = false;
-            if (Utilities.config.getBoolean("general.debug")) {
-                Utilities.consoleMsg(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_COMPATIBLE);
-            }
             setupEconomy();
         } else {
             Vault = false;
-            incompatibleVault = true;
-            if (Utilities.config.getBoolean("general.debug")) {
-                Utilities.consoleMsg(Strings.DEBUGPREFIX + Strings.DEPENDENCIES_VAULT_INCOMPATIBLE);
-            }
         }
     }
 

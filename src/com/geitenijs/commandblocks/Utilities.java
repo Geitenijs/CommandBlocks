@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -48,21 +49,24 @@ public class Utilities {
     }
 
     static void createConfigs() {
-        config.options().header(Strings.ASCIILOGO
-                + "Executing your commands since 2018! By " + Strings.AUTHOR +
-                "\nInformation & Support: " + Strings.WEBSITE
-                + "\n\ngeneral:"
-                + "\n  pluginbanner: Whether or not to display the fancy banner in your console on server startup."
-                + "\n  colourfulconsole: Console messages will be coloured when this is enabled."
-                + "\n  debug: When set to true, the plugin will log more information to the console."
-                + "\nupdates:"
-                + "\n  check: When enabled, the plugin will check for updates. No automatic downloads, just a subtle notification in the console."
-                + "\n  notify: Would you like to get an in-game reminder of a new update? Requires permission 'commandblocks.notify.update'."
-                + "\ndefault:"
-                + Strings.BLOCKDEFAULTS);
+        List<String> configComments = new ArrayList<>();
+        configComments.addAll(Strings.ASCIILOGO);
+        configComments.addAll(Arrays.asList(
+                "Executing your commands since 2018! By " + Strings.AUTHOR,
+                "Information & Support: " + Strings.WEBSITE,
+                "",
+                "general:",
+                "  pluginbanner: Whether or not to display the fancy banner in your console on server startup.",
+                "  colourfulconsole: Console messages will be coloured when this is enabled.",
+                "updates:",
+                "  check: When enabled, the plugin will check for updates. No automatic downloads, just a subtle notification in the console.",
+                "  notify: Would you like to get an in-game reminder of a new update? Requires permission 'commandblocks.notify.update'.",
+                "default:"
+        ));
+        configComments.addAll(Strings.BLOCKDEFAULTS);
+        config.set("general.debug", null);
         config.addDefault("general.pluginbanner", true);
         config.addDefault("general.colourfulconsole", true);
-        config.addDefault("general.debug", false);
         config.addDefault("updates.check", true);
         config.addDefault("updates.notify", true);
 
@@ -103,15 +107,19 @@ public class Utilities {
         config.addDefault("default.timeout.messages", timeoutMessages);
         config.addDefault("default.delay.value", 0);
 
-        blocks.options().header(Strings.ASCIILOGO
-                + "Executing your commands since 2018! By " + Strings.AUTHOR +
-                "\nInformation & Support: " + Strings.WEBSITE
-                + "\n\nblock:"
-                + "\n  location: The location of the CommandBlock. Don't change this unless you know what you're doing!"
-                + Strings.BLOCKDEFAULTS);
-        config.options().copyHeader(true);
+        List<String> blocksComments = new ArrayList<>();
+        blocksComments.addAll(Strings.ASCIILOGO);
+        blocksComments.addAll(Arrays.asList(
+                "Executing your commands since 2018! By " + Strings.AUTHOR,
+                "Information & Support: " + Strings.WEBSITE,
+                "",
+                "block:",
+                "  location: The location of the CommandBlock. Don't change this unless you know what you're doing!"
+        ));
+        configComments.addAll(Strings.BLOCKDEFAULTS);
+        config.options().parseComments(true);
         config.options().copyDefaults(true);
-        blocks.options().copyHeader(true);
+        blocks.options().parseComments(true);
         blocks.options().copyDefaults(true);
         saveConfigFile();
         reloadConfigFile();
@@ -155,7 +163,6 @@ public class Utilities {
         metrics.addCustomChart(new Metrics.SingleLineChart("definedCommandBlocks", () -> blocks.getKeys(false).size()));
         metrics.addCustomChart(new Metrics.SimplePie("pluginBannerEnabled", () -> config.getString("general.pluginbanner")));
         metrics.addCustomChart(new Metrics.SimplePie("colourfulConsoleEnabled", () -> config.getString("general.colourfulconsole")));
-        metrics.addCustomChart(new Metrics.SimplePie("debugEnabled", () -> config.getString("general.debug")));
         metrics.addCustomChart(new Metrics.SimplePie("updateCheckEnabled", () -> config.getString("updates.check")));
         metrics.addCustomChart(new Metrics.SimplePie("updateNotificationEnabled", () -> config.getString("updates.notify")));
         metrics.addCustomChart(new Metrics.SimplePie("vaultVersion", () -> {
@@ -186,15 +193,9 @@ public class Utilities {
                                 updateAvailable = true;
                                 break;
                             case LATEST:
-                                if (config.getBoolean("general.debug")) {
-                                    consoleMsg(Strings.DEBUGPREFIX + "You are running the latest version.");
-                                }
                                 updateAvailable = false;
                                 break;
                             case UNAVAILABLE:
-                                if (config.getBoolean("general.debug")) {
-                                    consoleMsg(Strings.DEBUGPREFIX + "An error occurred while checking for updates.");
-                                }
                                 updateAvailable = false;
                         }
                     }).check();

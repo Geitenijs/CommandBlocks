@@ -16,7 +16,7 @@ public class Command_Reload implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             Utilities.reloadConfigFile();
             Utilities.reloadBlocksFile();
-            Utilities.msg(s, "&aConfiguration files have been reloaded successfully.");
+            Utilities.msg(s, Strings.IGPREFIX + "&aThe configuration files have been reloaded.");
         } else {
             Utilities.msg(s, Strings.RELOADUSAGE);
         }

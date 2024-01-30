@@ -34,7 +34,7 @@ public class Events implements Listener {
                 if (Utilities.blocks.getString(path + ".location") != null && Objects.equals(Utilities.blocks.getString(path + ".location"), convertedBlockLocation)) {
                     String permission = Utilities.blocks.getString(path + ".permission.value");
                     if (permission == null) {
-                        Utilities.msg(e.getPlayer(), "&cFailed to execute CommandBlock, no permission defined.");
+                        Utilities.msg(e.getPlayer(), Strings.IGPREFIX + "&cFailed to execute CommandBlock, no permission defined.");
                     } else if (e.getPlayer().hasPermission(permission)) {
                         Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
                             if (Utilities.timeouts.containsKey(path)) {
@@ -97,8 +97,6 @@ public class Events implements Listener {
                                                 }
                                             }
                                         }
-                                    } else if (Hooks.incompatibleVault) {
-                                        Utilities.msg(e.getPlayer(), Strings.UPDATEVAULT);
                                     } else {
                                         Utilities.msg(e.getPlayer(), Strings.NOVAULT);
                                     }
@@ -167,10 +165,8 @@ public class Events implements Listener {
     public void onUpdateAvailable(PlayerJoinEvent e) {
         if ((e.getPlayer().hasPermission("commandblocks.notify.update")) && Utilities.config.getBoolean("updates.check") && Utilities.config.getBoolean("updates.notify") && Utilities.updateAvailable()) {
             Bukkit.getScheduler().runTaskLaterAsynchronously(Main.plugin, () -> {
-                Utilities.msg(e.getPlayer(), Strings.GAMEPREFIX + "&fA new release of &a" + Strings.PLUGIN + "&f is available!");
-                Utilities.msg(e.getPlayer(), Strings.GAMEPREFIX + "&fCurrent version: &a" + Strings.VERSION + "&f; New version: &a" + Utilities.updateVersion() + "&f.");
-                Utilities.msg(e.getPlayer(), Strings.GAMEPREFIX + "&fTo download the update, visit this website:");
-                Utilities.msg(e.getPlayer(), Strings.GAMEPREFIX + "&a" + Strings.WEBSITE + "&f.");
+                Utilities.msg(e.getPlayer(), Strings.IGPREFIX + "&fA new &a" + Strings.PLUGIN + "&f update is available: &av" + Utilities.updateVersion() + "&f!");
+                Utilities.msg(e.getPlayer(), Strings.IGPREFIX + "&fDownload @ &a" + Strings.WEBSITE + "&f.");
             }, 100L);
         }
     }

@@ -1,7 +1,6 @@
 package com.geitenijs.commandblocks.updatechecker;
 
 import com.geitenijs.commandblocks.Strings;
-import com.geitenijs.commandblocks.Utilities;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Resources;
 import com.google.common.net.HttpHeaders;
@@ -65,9 +64,6 @@ public class UpdateCheck {
                 Bukkit.getScheduler().runTask(this.javaPlugin, () -> this.versionResponse.accept(latestVersion ? VersionResponse.LATEST : VersionResponse.FOUND_NEW, latestVersion ? this.currentVersion : fetchedVersion));
             } catch (IOException ex) {
                 Bukkit.getScheduler().runTask(this.javaPlugin, () -> this.versionResponse.accept(VersionResponse.UNAVAILABLE, null));
-                if (Utilities.config.getBoolean("general.debug")) {
-                    ex.printStackTrace();
-                }
             }
         });
     }

@@ -21,9 +21,8 @@ public class Command_Create implements CommandExecutor, TabCompleter {
     public boolean onCommand(final CommandSender s, final Command c, final String label, final String[] args) {
         if (args.length == 3) {
             if (args[1].equalsIgnoreCase("current")) {
-                if (s instanceof Player) {
+                if (s instanceof Player p) {
                     final String name = args[2];
-                    Player p = (Player) s;
                     Block block;
                     if ((Main.version.contains("v1_13_R2") || Main.version.contains("v1_13_R1"))) {
                         block = p.getTargetBlockExact(5);
@@ -36,7 +35,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             block.getLocation().getBlockZ() + "#" +
                             block.getLocation().getWorld().getName();
                     if (Utilities.blocks.getConfigurationSection(name) != null || Utilities.blocks.contains(blockLocation)) {
-                        Utilities.msg(s, "&cA CommandBlock with that name already exists.");
+                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock with that name already exists.");
                         return false;
                     } else {
                         Utilities.blocks.set(name + ".location", blockLocation);
@@ -64,7 +63,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
 
                         Utilities.saveBlocksFile();
                         Utilities.reloadBlocksFile();
-                        Utilities.msg(s, "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
+                        Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
                     }
                 } else {
                     Utilities.msg(s, Strings.ONLYPLAYER);
@@ -81,7 +80,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                     final int z = Integer.parseInt(args[5]);
                     final String world = args[6];
                     if (Bukkit.getWorld(world) == null) {
-                        Utilities.msg(s, "&cWorld &f'" + world + "'&c doesn't exist, or isn't loaded in memory.");
+                        Utilities.msg(s, Strings.IGPREFIX + "&cWorld &f'" + world + "'&c doesn't exist, or isn't loaded in memory.");
                         return false;
                     }
                     World realWorld = Bukkit.getWorld(world);
@@ -93,7 +92,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             block.getLocation().getBlockZ() + "#" +
                             block.getLocation().getWorld().getName();
                     if (Utilities.blocks.getConfigurationSection(name) != null || Utilities.blocks.contains(blockLocation)) {
-                        Utilities.msg(s, "&cA CommandBlock with that name already exists.");
+                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock with that name already exists.");
                         return false;
                     }
                     Utilities.blocks.set(name + ".location", blockLocation);
@@ -121,7 +120,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
 
                     Utilities.saveBlocksFile();
                     Utilities.reloadBlocksFile();
-                    Utilities.msg(s, "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
+                    Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
                 } catch (NumberFormatException ex) {
                     Utilities.msg(s, Strings.UNUSABLE);
                 }
@@ -143,8 +142,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
             tabs.add("coords");
         }
         if (args[1].equals("coords")) {
-            if (s instanceof Player) {
-                Player player = (Player) s;
+            if (s instanceof Player player) {
                 Location loc = player.getLocation();
                 if (newArgs.length == 2) {
                     tabs.add("<name>");

@@ -15,11 +15,10 @@ public class Command_List implements CommandExecutor, TabCompleter {
     public boolean onCommand(final CommandSender s, final Command c, final String label, final String[] args) {
         if (args.length == 1) {
             if (Utilities.blocks.getKeys(false).isEmpty()) {
-                Utilities.msg(s, "&cThere are currently no CommandBlocks defined.");
+                Utilities.msg(s, Strings.IGPREFIX + "&cThere are currently no CommandBlocks defined.");
                 return true;
             }
-            Utilities.msg(s, "&aA list of all CommandBlocks will be shown below.");
-            Utilities.msg(s, "&7---");
+            Utilities.msg(s, Strings.LINE);
             for (final String key : Utilities.blocks.getKeys(false)) {
                 final String locString = Utilities.blocks.getString(key + ".location");
                 assert locString != null;
@@ -28,10 +27,10 @@ public class Command_List implements CommandExecutor, TabCompleter {
                 final int y = Integer.parseInt(blockCoordinates[1]);
                 final int z = Integer.parseInt(blockCoordinates[2]);
                 final String world = blockCoordinates[3];
-                Utilities.msg(s, "&fCommandBlock &9" + key + "&f at &6(" + x + "," + y + "," + z + ")&f in world &6'" + world + "'&f.");
+                Utilities.msg(s, "&fCommandBlock &9" + key + "&f at &6(" + x + ", " + y + ", " + z + ")&f in &6'" + world + "'&f.");
             }
-            Utilities.msg(s, "&7---");
-            Utilities.msg(s, "&aA total of &f" + Utilities.blocks.getKeys(false).size() + "&a CommandBlocks are currently defined.");
+            Utilities.msg(s, Strings.LINE);
+            Utilities.msg(s, Strings.IGPREFIX + "&aA total of &f" + Utilities.blocks.getKeys(false).size() + "&a CommandBlocks are currently defined.");
         } else {
             Utilities.msg(s, Strings.LISTUSAGE);
         }
