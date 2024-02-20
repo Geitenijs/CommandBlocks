@@ -63,6 +63,7 @@ public class Utilities {
                 "  notify: Would you like to get an in-game reminder of a new update? Requires permission 'commandblocks.notify.update'.",
                 "default:"
         ));
+        config.options().setHeader(configComments);
         configComments.addAll(Strings.BLOCKDEFAULTS);
         config.set("general.debug", null);
         config.addDefault("general.pluginbanner", true);
@@ -117,6 +118,7 @@ public class Utilities {
                 "  location: The location of the CommandBlock. Don't change this unless you know what you're doing!"
         ));
         configComments.addAll(Strings.BLOCKDEFAULTS);
+        blocks.options().setHeader(blocksComments);
         config.options().parseComments(true);
         config.options().copyDefaults(true);
         blocks.options().parseComments(true);
@@ -151,7 +153,7 @@ public class Utilities {
             }
         });
         runnable.runTaskTimerAsynchronously(Main.plugin, 0L, 1L);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, Utilities::checkForUpdates, 200L, 216000L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, Utilities::checkForUpdates, 200L);
     }
 
     static void stopTasks() {
@@ -247,10 +249,8 @@ public class Utilities {
     }
 
     public static void msg(final CommandSender s, String msg) {
-        if (s instanceof Player) {
-            msg = ChatColor.translateAlternateColorCodes('&', msg);
-        } else {
-            msg = ChatColor.translateAlternateColorCodes('&', Strings.INTERNALPREFIX + msg);
+        msg = ChatColor.translateAlternateColorCodes('&', msg);
+        if (!(s instanceof Player)) {
             if (!config.getBoolean("general.colourfulconsole")) {
                 msg = ChatColor.stripColor(msg);
             }
