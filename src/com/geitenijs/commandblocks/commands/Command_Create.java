@@ -1,6 +1,5 @@
 package com.geitenijs.commandblocks.commands;
 
-import com.geitenijs.commandblocks.Main;
 import com.geitenijs.commandblocks.Strings;
 import com.geitenijs.commandblocks.Utilities;
 import org.bukkit.Bukkit;
@@ -24,12 +23,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                 if (s instanceof Player p) {
                     final String name = args[2];
                     Block block;
-                    if ((Main.version.contains("v1_13_R2") || Main.version.contains("v1_13_R1"))) {
-                        block = p.getTargetBlockExact(5);
-                    } else {
-                        block = p.getTargetBlock(null, 5);
-                    }
-                    assert block != null;
+                    block = p.getTargetBlock(null, 5);
                     String blockLocation = block.getLocation().getBlockX() + "#" +
                             block.getLocation().getBlockY() + "#" +
                             block.getLocation().getBlockZ() + "#" +

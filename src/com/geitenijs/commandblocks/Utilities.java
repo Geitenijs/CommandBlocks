@@ -161,7 +161,7 @@ public class Utilities {
     }
 
     static void startMetrics() {
-        Metrics metrics = new Metrics(Main.plugin);
+        Metrics metrics = new Metrics(Main.plugin, 3655);
         metrics.addCustomChart(new Metrics.SingleLineChart("definedCommandBlocks", () -> blocks.getKeys(false).size()));
         metrics.addCustomChart(new Metrics.SimplePie("pluginBannerEnabled", () -> config.getString("general.pluginbanner")));
         metrics.addCustomChart(new Metrics.SimplePie("colourfulConsoleEnabled", () -> config.getString("general.colourfulconsole")));

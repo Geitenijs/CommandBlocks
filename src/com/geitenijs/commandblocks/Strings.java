@@ -8,7 +8,7 @@ public class Strings {
     public static final String PLUGINCOLOURED = "&c&lCommand&8&lBlocks";
     public static final String IGFULLPREFIX = PLUGINCOLOURED + " &7&l» ";
     public static final String IGPREFIX = "&c&lC&8&lB &7&l» ";
-    public static final String VERSION = "1.3.1";
+    public static final String VERSION = "1.3.2";
     public static final String AUTHOR = "Geitenijs";
     public static final String NOPERM = Strings.IGPREFIX + "&cYou don't have permission to do that.";
     public static final String UNUSABLE = Strings.IGPREFIX + "&cOne or more values you've entered are unusable.";
