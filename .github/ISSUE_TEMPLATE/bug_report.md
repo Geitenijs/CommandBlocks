@@ -24,8 +24,9 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment (please complete the following information):**
  - OS: [e.g. Linux]
- - Server Software [e.g. Spigot, Paper]
- - Server Version [e.g. 1.14.4]
+ - Server software [e.g. Spigot, Paper]
+ - Server version [e.g. 1.14.4]
+ - CommandBlocks version [e.g. v1.3.0]
  - Full list of plugins
 
 **Additional context**
