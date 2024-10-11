@@ -86,7 +86,6 @@ public class Utilities {
 
         successCommandsConsole.add("say {player} used a CommandBlock!");
         successCommandsPlayer.add("me I used a CommandBlock!");
-        successMessages.add("&aYou paid €{cost} in order to use this CommandBlock!");
         permissionMessages.add("&cYou don't have permission to do that.");
         costMessages.add("&cYou don't have sufficient funds to do that.");
         timeoutMessages.add("&cPlease wait {time} seconds before doing that again.");
@@ -98,11 +97,12 @@ public class Utilities {
         config.addDefault("default.permission.commands.console", permissionCommandsConsole);
         config.addDefault("default.permission.commands.player", permissionCommandsPlayer);
         config.addDefault("default.permission.messages", permissionMessages);
-        config.addDefault("default.cost.value", 10D);
+        config.addDefault("default.cost.value", 0);
         config.addDefault("default.cost.commands.console", costCommandsConsole);
         config.addDefault("default.cost.commands.player", costCommandsPlayer);
         config.addDefault("default.cost.messages", costMessages);
         config.addDefault("default.timeout.value", 5);
+        config.addDefault("default.timeout.bypasspermission", "commandblocks.timeout.bypass");
         config.addDefault("default.timeout.commands.console", timeoutCommandsConsole);
         config.addDefault("default.timeout.commands.player", timeoutCommandsPlayer);
         config.addDefault("default.timeout.messages", timeoutMessages);
@@ -117,7 +117,7 @@ public class Utilities {
                 "block:",
                 "  location: The location of the CommandBlock. Don't change this unless you know what you're doing!"
         ));
-        configComments.addAll(Strings.BLOCKDEFAULTS);
+        blocksComments.addAll(Strings.BLOCKDEFAULTS);
         blocks.options().setHeader(blocksComments);
         config.options().parseComments(true);
         config.options().copyDefaults(true);
@@ -137,7 +137,7 @@ public class Utilities {
     }
 
     static void registerEvents() {
-        Bukkit.getPluginManager().registerEvents(new Events(), Main.plugin);
+            Bukkit.getPluginManager().registerEvents(new Events(), Main.plugin);
     }
 
     static void startTasks() {

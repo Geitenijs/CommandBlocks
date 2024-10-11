@@ -18,7 +18,7 @@ import java.util.List;
 public class Command_Create implements CommandExecutor, TabCompleter {
 
     public boolean onCommand(final CommandSender s, final Command c, final String label, final String[] args) {
-        if (args.length == 3) {
+        if (args.length == 3 || args.length == 4) {
             if (args[1].equalsIgnoreCase("current")) {
                 if (s instanceof Player p) {
                     final String name = args[2];
@@ -31,7 +31,8 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                     if (Utilities.blocks.getConfigurationSection(name) != null || Utilities.blocks.contains(blockLocation)) {
                         Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock with that name already exists.");
                         return false;
-                    } else {
+                    }
+                    if (args.length == 3) {
                         Utilities.blocks.set(name + ".location", blockLocation);
 
                         Utilities.blocks.set(name + ".success.commands.console", Utilities.config.getStringList("default.success.commands.console"));
@@ -49,6 +50,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                         Utilities.blocks.set(name + ".cost.messages", Utilities.config.getStringList("default.cost.messages"));
 
                         Utilities.blocks.set(name + ".timeout.value", Utilities.config.getInt("default.timeout.value"));
+                        Utilities.blocks.set(name + ".timeout.bypasspermission", Utilities.config.getString("default.timeout.bypasspermission"));
                         Utilities.blocks.set(name + ".timeout.commands.console", Utilities.config.getStringList("default.timeout.commands.console"));
                         Utilities.blocks.set(name + ".timeout.commands.player", Utilities.config.getStringList("default.timeout.commands.player"));
                         Utilities.blocks.set(name + ".timeout.messages", Utilities.config.getStringList("default.timeout.messages"));
@@ -58,6 +60,39 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                         Utilities.saveBlocksFile();
                         Utilities.reloadBlocksFile();
                         Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
+                    } else {
+                        final String base = args[3];
+                        if (Utilities.blocks.getConfigurationSection(base) != null) {
+                            Utilities.blocks.set(name + ".location", blockLocation);
+
+                            Utilities.blocks.set(name + ".success.commands.console", Utilities.blocks.getStringList(base + ".success.commands.console"));
+                            Utilities.blocks.set(name + ".success.commands.player", Utilities.blocks.getStringList(base + ".success.commands.player"));
+                            Utilities.blocks.set(name + ".success.messages", Utilities.blocks.getStringList(base + ".success.messages"));
+
+                            Utilities.blocks.set(name + ".permission.value", Utilities.blocks.getString(base + ".permission.value"));
+                            Utilities.blocks.set(name + ".permission.commands.console", Utilities.blocks.getStringList(base + ".permission.commands.console"));
+                            Utilities.blocks.set(name + ".permission.commands.player", Utilities.blocks.getStringList(base + ".permission.commands.player"));
+                            Utilities.blocks.set(name + ".permission.messages", Utilities.blocks.getStringList(base + ".permission.messages"));
+
+                            Utilities.blocks.set(name + ".cost.value", Utilities.blocks.getDouble(base + ".cost.value"));
+                            Utilities.blocks.set(name + ".cost.commands.console", Utilities.blocks.getStringList(base + ".cost.commands.console"));
+                            Utilities.blocks.set(name + ".cost.commands.player", Utilities.blocks.getStringList(base + ".cost.commands.player"));
+                            Utilities.blocks.set(name + ".cost.messages", Utilities.blocks.getStringList(base + ".cost.messages"));
+
+                            Utilities.blocks.set(name + ".timeout.value", Utilities.blocks.getInt(base + ".timeout.value"));
+                            Utilities.blocks.set(name + ".timeout.bypasspermission", Utilities.blocks.getString(base + ".timeout.bypasspermission"));
+                            Utilities.blocks.set(name + ".timeout.commands.console", Utilities.blocks.getStringList(base + ".timeout.commands.console"));
+                            Utilities.blocks.set(name + ".timeout.commands.player", Utilities.blocks.getStringList(base + ".timeout.commands.player"));
+                            Utilities.blocks.set(name + ".timeout.messages", Utilities.blocks.getStringList(base + ".timeout.messages"));
+
+                            Utilities.blocks.set(name + ".delay.value", Utilities.blocks.getInt(base + ".delay.value"));
+
+                            Utilities.saveBlocksFile();
+                            Utilities.reloadBlocksFile();
+                            Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
+                        } else {
+                            Utilities.msg(s, Strings.IGPREFIX + "&cNo CommandBlock with that name could be found to copy.");
+                        }
                     }
                 } else {
                     Utilities.msg(s, Strings.ONLYPLAYER);
@@ -65,7 +100,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
             } else {
                 Utilities.msg(s, Strings.CREATEUSAGE);
             }
-        } else if (args.length == 7) {
+        } else if (args.length == 7 || args.length == 8) {
             if (args[1].equalsIgnoreCase("coords")) {
                 try {
                     final String name = args[2];
@@ -89,32 +124,68 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                         Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock with that name already exists.");
                         return false;
                     }
-                    Utilities.blocks.set(name + ".location", blockLocation);
+                    if (args.length == 7) {
+                        Utilities.blocks.set(name + ".location", blockLocation);
 
-                    Utilities.blocks.set(name + ".success.commands.console", Utilities.config.getStringList("default.success.commands.console"));
-                    Utilities.blocks.set(name + ".success.commands.player", Utilities.config.getStringList("default.success.commands.player"));
-                    Utilities.blocks.set(name + ".success.messages", Utilities.config.getStringList("default.success.messages"));
+                        Utilities.blocks.set(name + ".success.commands.console", Utilities.config.getStringList("default.success.commands.console"));
+                        Utilities.blocks.set(name + ".success.commands.player", Utilities.config.getStringList("default.success.commands.player"));
+                        Utilities.blocks.set(name + ".success.messages", Utilities.config.getStringList("default.success.messages"));
 
-                    Utilities.blocks.set(name + ".permission.value", Utilities.config.getString("default.permission.value"));
-                    Utilities.blocks.set(name + ".permission.commands.console", Utilities.config.getStringList("default.permission.commands.console"));
-                    Utilities.blocks.set(name + ".permission.commands.player", Utilities.config.getStringList("default.permission.commands.player"));
-                    Utilities.blocks.set(name + ".permission.messages", Utilities.config.getStringList("default.permission.messages"));
+                        Utilities.blocks.set(name + ".permission.value", Utilities.config.getString("default.permission.value"));
+                        Utilities.blocks.set(name + ".permission.commands.console", Utilities.config.getStringList("default.permission.commands.console"));
+                        Utilities.blocks.set(name + ".permission.commands.player", Utilities.config.getStringList("default.permission.commands.player"));
+                        Utilities.blocks.set(name + ".permission.messages", Utilities.config.getStringList("default.permission.messages"));
 
-                    Utilities.blocks.set(name + ".cost.value", Utilities.config.getDouble("default.cost.value"));
-                    Utilities.blocks.set(name + ".cost.commands.console", Utilities.config.getStringList("default.cost.commands.console"));
-                    Utilities.blocks.set(name + ".cost.commands.player", Utilities.config.getStringList("default.cost.commands.player"));
-                    Utilities.blocks.set(name + ".cost.messages", Utilities.config.getStringList("default.cost.messages"));
+                        Utilities.blocks.set(name + ".cost.value", Utilities.config.getDouble("default.cost.value"));
+                        Utilities.blocks.set(name + ".cost.commands.console", Utilities.config.getStringList("default.cost.commands.console"));
+                        Utilities.blocks.set(name + ".cost.commands.player", Utilities.config.getStringList("default.cost.commands.player"));
+                        Utilities.blocks.set(name + ".cost.messages", Utilities.config.getStringList("default.cost.messages"));
 
-                    Utilities.blocks.set(name + ".timeout.value", Utilities.config.getInt("default.timeout.value"));
-                    Utilities.blocks.set(name + ".timeout.commands.console", Utilities.config.getStringList("default.timeout.commands.console"));
-                    Utilities.blocks.set(name + ".timeout.commands.player", Utilities.config.getStringList("default.timeout.commands.player"));
-                    Utilities.blocks.set(name + ".timeout.messages", Utilities.config.getStringList("default.timeout.messages"));
+                        Utilities.blocks.set(name + ".timeout.value", Utilities.config.getInt("default.timeout.value"));
+                        Utilities.blocks.set(name + ".timeout.bypasspermission", Utilities.config.getString("default.timeout.bypasspermission"));
+                        Utilities.blocks.set(name + ".timeout.commands.console", Utilities.config.getStringList("default.timeout.commands.console"));
+                        Utilities.blocks.set(name + ".timeout.commands.player", Utilities.config.getStringList("default.timeout.commands.player"));
+                        Utilities.blocks.set(name + ".timeout.messages", Utilities.config.getStringList("default.timeout.messages"));
 
-                    Utilities.blocks.set(name + ".delay.value", Utilities.config.getInt("default.delay.value"));
+                        Utilities.blocks.set(name + ".delay.value", Utilities.config.getInt("default.delay.value"));
 
-                    Utilities.saveBlocksFile();
-                    Utilities.reloadBlocksFile();
-                    Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
+                        Utilities.saveBlocksFile();
+                        Utilities.reloadBlocksFile();
+                        Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
+                    } else {
+                        final String base = args[7];
+                        if (Utilities.blocks.getConfigurationSection(base) != null) {
+                            Utilities.blocks.set(name + ".location", blockLocation);
+
+                            Utilities.blocks.set(name + ".success.commands.console", Utilities.blocks.getStringList(base + ".success.commands.console"));
+                            Utilities.blocks.set(name + ".success.commands.player", Utilities.blocks.getStringList(base + ".success.commands.player"));
+                            Utilities.blocks.set(name + ".success.messages", Utilities.blocks.getStringList(base + ".success.messages"));
+
+                            Utilities.blocks.set(name + ".permission.value", Utilities.blocks.getString(base + ".permission.value"));
+                            Utilities.blocks.set(name + ".permission.commands.console", Utilities.blocks.getStringList(base + ".permission.commands.console"));
+                            Utilities.blocks.set(name + ".permission.commands.player", Utilities.blocks.getStringList(base + ".permission.commands.player"));
+                            Utilities.blocks.set(name + ".permission.messages", Utilities.blocks.getStringList(base + ".permission.messages"));
+
+                            Utilities.blocks.set(name + ".cost.value", Utilities.blocks.getDouble(base + ".cost.value"));
+                            Utilities.blocks.set(name + ".cost.commands.console", Utilities.blocks.getStringList(base + ".cost.commands.console"));
+                            Utilities.blocks.set(name + ".cost.commands.player", Utilities.blocks.getStringList(base + ".cost.commands.player"));
+                            Utilities.blocks.set(name + ".cost.messages", Utilities.blocks.getStringList(base + ".cost.messages"));
+
+                            Utilities.blocks.set(name + ".timeout.value", Utilities.blocks.getInt(base + ".timeout.value"));
+                            Utilities.blocks.set(name + ".timeout.bypasspermission", Utilities.blocks.getString(base + ".timeout.bypasspermission"));
+                            Utilities.blocks.set(name + ".timeout.commands.console", Utilities.blocks.getStringList(base + ".timeout.commands.console"));
+                            Utilities.blocks.set(name + ".timeout.commands.player", Utilities.blocks.getStringList(base + ".timeout.commands.player"));
+                            Utilities.blocks.set(name + ".timeout.messages", Utilities.blocks.getStringList(base + ".timeout.messages"));
+
+                            Utilities.blocks.set(name + ".delay.value", Utilities.blocks.getInt(base + ".delay.value"));
+
+                            Utilities.saveBlocksFile();
+                            Utilities.reloadBlocksFile();
+                            Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
+                        } else {
+                            Utilities.msg(s, Strings.IGPREFIX + "&cNo CommandBlock with that name could be found to copy.");
+                        }
+                    }
                 } catch (NumberFormatException ex) {
                     Utilities.msg(s, Strings.UNUSABLE);
                 }
@@ -153,6 +224,9 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                 if (newArgs.length == 6) {
                     tabs.add(loc.getWorld().getName());
                 }
+                if (newArgs.length == 7) {
+                    tabs.addAll(Utilities.blocks.getKeys(false));
+                }
             } else {
                 if (newArgs.length == 2) {
                     tabs.add("<name>");
@@ -169,11 +243,17 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                 if (newArgs.length == 6) {
                     tabs.add("<world>");
                 }
+                if (newArgs.length == 7) {
+                    tabs.addAll(Utilities.blocks.getKeys(false));
+                }
             }
         }
         if (args[1].equals("current")) {
             if (newArgs.length == 2) {
                 tabs.add("<name>");
+            }
+            if (newArgs.length == 3) {
+                tabs.addAll(Utilities.blocks.getKeys(false));
             }
         }
         return CommandWrapper.filterTabs(tabs, args);

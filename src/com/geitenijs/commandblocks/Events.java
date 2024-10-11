@@ -33,36 +33,37 @@ public class Events implements Listener {
             for (final String path : Utilities.blocks.getKeys(false)) {
                 if (Utilities.blocks.getString(path + ".location") != null && Objects.equals(Utilities.blocks.getString(path + ".location"), convertedBlockLocation)) {
                     String permission = Utilities.blocks.getString(path + ".permission.value");
-                    if (permission == null) {
-                        Utilities.msg(e.getPlayer(), Strings.IGPREFIX + "&cFailed to execute CommandBlock, no permission defined.");
-                    } else if (e.getPlayer().hasPermission(permission)) {
+                    if (permission == null || e.getPlayer().hasPermission(permission)) {
                         Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
-                            if (Utilities.timeouts.containsKey(path)) {
-                                double timeLeft = (Utilities.timeouts.get(path) / 20);
-                                int output = (int) Math.ceil(timeLeft);
-                                String finalOutput = Integer.toString(output);
-                                if (!Utilities.blocks.getStringList(path + ".timeout.commands.console").isEmpty()) {
-                                    for (String timeoutCommandsConsole : Utilities.blocks.getStringList(path + ".timeout.commands.console")) {
-                                        timeoutCommandsConsole = timeoutCommandsConsole.replace("{player}", e.getPlayer().getName());
-                                        timeoutCommandsConsole = timeoutCommandsConsole.replace("{time}", finalOutput);
-                                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), timeoutCommandsConsole);
+                            String bypassPermission = Utilities.blocks.getString(path + ".timeout.bypasspermission");
+                            if (bypassPermission == null || !e.getPlayer().hasPermission(bypassPermission)) {
+                                if (Utilities.timeouts.containsKey(path)) {
+                                    double timeLeft = (Utilities.timeouts.get(path) / 20);
+                                    int output = (int) Math.ceil(timeLeft);
+                                    String finalOutput = Integer.toString(output);
+                                    if (!Utilities.blocks.getStringList(path + ".timeout.commands.console").isEmpty()) {
+                                        for (String timeoutCommandsConsole : Utilities.blocks.getStringList(path + ".timeout.commands.console")) {
+                                            timeoutCommandsConsole = timeoutCommandsConsole.replace("{player}", e.getPlayer().getName());
+                                            timeoutCommandsConsole = timeoutCommandsConsole.replace("{time}", finalOutput);
+                                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), timeoutCommandsConsole);
+                                        }
                                     }
-                                }
-                                if (!Utilities.blocks.getStringList(path + ".timeout.commands.player").isEmpty()) {
-                                    for (String timeoutCommandsPlayer : Utilities.blocks.getStringList(path + ".timeout.commands.player")) {
-                                        timeoutCommandsPlayer = timeoutCommandsPlayer.replace("{player}", e.getPlayer().getName());
-                                        timeoutCommandsPlayer = timeoutCommandsPlayer.replace("{time}", finalOutput);
-                                        Bukkit.dispatchCommand(e.getPlayer(), timeoutCommandsPlayer);
+                                    if (!Utilities.blocks.getStringList(path + ".timeout.commands.player").isEmpty()) {
+                                        for (String timeoutCommandsPlayer : Utilities.blocks.getStringList(path + ".timeout.commands.player")) {
+                                            timeoutCommandsPlayer = timeoutCommandsPlayer.replace("{player}", e.getPlayer().getName());
+                                            timeoutCommandsPlayer = timeoutCommandsPlayer.replace("{time}", finalOutput);
+                                            Bukkit.dispatchCommand(e.getPlayer(), timeoutCommandsPlayer);
+                                        }
                                     }
-                                }
-                                if (!Utilities.blocks.getString(path + ".timeout.messages").isEmpty()) {
-                                    for (String timeoutMessages : Utilities.blocks.getStringList(path + ".timeout.messages")) {
-                                        timeoutMessages = timeoutMessages.replace("{player}", e.getPlayer().getName());
-                                        timeoutMessages = timeoutMessages.replace("{time}", finalOutput);
-                                        Utilities.msg(e.getPlayer(), timeoutMessages);
+                                    if (!Utilities.blocks.getStringList(path + ".timeout.messages").isEmpty()) {
+                                        for (String timeoutMessages : Utilities.blocks.getStringList(path + ".timeout.messages")) {
+                                            timeoutMessages = timeoutMessages.replace("{player}", e.getPlayer().getName());
+                                            timeoutMessages = timeoutMessages.replace("{time}", finalOutput);
+                                            Utilities.msg(e.getPlayer(), timeoutMessages);
+                                        }
                                     }
+                                    return;
                                 }
-                                return;
                             }
 
                             if (Utilities.blocks.getDouble(path + ".cost.value") != 0) {
@@ -89,7 +90,7 @@ public class Events implements Listener {
                                                     Bukkit.dispatchCommand(e.getPlayer(), costCommandsPlayer);
                                                 }
                                             }
-                                            if (!Utilities.blocks.getString(path + ".cost.messages").isEmpty()) {
+                                            if (!Utilities.blocks.getStringList(path + ".cost.messages").isEmpty()) {
                                                 for (String costMessages : Utilities.blocks.getStringList(path + ".cost.messages")) {
                                                     costMessages = costMessages.replace("{player}", e.getPlayer().getName());
                                                     costMessages = costMessages.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
@@ -120,7 +121,7 @@ public class Events implements Listener {
                                         Bukkit.dispatchCommand(e.getPlayer(), successCommandsPlayer);
                                     }
                                 }
-                                if (!Utilities.blocks.getString(path + ".success.messages").isEmpty()) {
+                                if (!Utilities.blocks.getStringList(path + ".success.messages").isEmpty()) {
                                     for (String successMessages : Utilities.blocks.getStringList(path + ".success.messages")) {
                                         successMessages = successMessages.replace("{player}", e.getPlayer().getName());
                                         successMessages = successMessages.replace("{cost}", String.valueOf(Utilities.blocks.getDouble(path + ".cost.value")));
@@ -131,9 +132,7 @@ public class Events implements Listener {
 
                             Utilities.timeouts.put(path, Utilities.blocks.getDouble(path + ".timeout.value") * 20);
                         }, Utilities.blocks.getLong(path + ".delay.value") * 20);
-
                     } else {
-
                         if (!Utilities.blocks.getStringList(path + ".permission.commands.console").isEmpty()) {
                             for (String permissionCommandsConsole : Utilities.blocks.getStringList(path + ".permission.commands.console")) {
                                 permissionCommandsConsole = permissionCommandsConsole.replace("{player}", e.getPlayer().getName());
@@ -148,7 +147,7 @@ public class Events implements Listener {
                                 Bukkit.dispatchCommand(e.getPlayer(), permissionCommandsPlayer);
                             }
                         }
-                        if (!Utilities.blocks.getString(path + ".permission.messages").isEmpty()) {
+                        if (!Utilities.blocks.getStringList(path + ".permission.messages").isEmpty()) {
                             for (String permissionMessages : Utilities.blocks.getStringList(path + ".permission.messages")) {
                                 permissionMessages = permissionMessages.replace("{player}", e.getPlayer().getName());
                                 permissionMessages = permissionMessages.replace("{permission}", permission);
