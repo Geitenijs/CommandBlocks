@@ -93,7 +93,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             Utilities.reloadBlocksFile();
                             Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
                         } else {
-                            Utilities.msg(s, Strings.IGPREFIX + "&cFailed to copy. CommandBlock &f'" + name + "'&c does not exist.");
+                            Utilities.msg(s, Strings.IGPREFIX + "&cFailed to copy. CommandBlock &f'" + base + "'&c does not exist.");
                         }
                     }
                 } else {
@@ -187,7 +187,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             Utilities.reloadBlocksFile();
                             Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
                         } else {
-                            Utilities.msg(s, Strings.IGPREFIX + "&cFailed to copy. CommandBlock &f'" + name + "'&c does not exist.");
+                            Utilities.msg(s, Strings.IGPREFIX + "&cFailed to copy. CommandBlock &f'" + base + "'&c does not exist.");
                         }
                     }
                 } catch (NumberFormatException ex) {
