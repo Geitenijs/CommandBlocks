@@ -29,7 +29,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             block.getLocation().getBlockZ() + "#" +
                             block.getLocation().getWorld().getName();
                     if (Utilities.blocks.getConfigurationSection(name) != null || Utilities.blocks.contains(blockLocation)) {
-                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock named &f'" + name + "'&c already exists!");
+                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock named &f'" + name + "'&c already exists.");
                         return false;
                     }
                     if (args.length == 3) {
@@ -123,7 +123,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             block.getLocation().getBlockZ() + "#" +
                             block.getLocation().getWorld().getName();
                     if (Utilities.blocks.getConfigurationSection(name) != null || Utilities.blocks.contains(blockLocation)) {
-                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock named &f'" + name + "'&c already exists!");
+                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock named &f'" + name + "'&c already exists.");
                         return false;
                     }
                     if (args.length == 7) {
