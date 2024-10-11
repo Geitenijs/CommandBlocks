@@ -29,7 +29,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             block.getLocation().getBlockZ() + "#" +
                             block.getLocation().getWorld().getName();
                     if (Utilities.blocks.getConfigurationSection(name) != null || Utilities.blocks.contains(blockLocation)) {
-                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock with that name already exists.");
+                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock named &f'" + name + "'&c already exists!");
                         return false;
                     }
                     if (args.length == 3) {
@@ -45,6 +45,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                         Utilities.blocks.set(name + ".permission.messages", Utilities.config.getStringList("default.permission.messages"));
 
                         Utilities.blocks.set(name + ".cost.value", Utilities.config.getDouble("default.cost.value"));
+                        Utilities.blocks.set(name + ".cost.bypasspermission", Utilities.config.getString("default.cost.bypasspermission"));
                         Utilities.blocks.set(name + ".cost.commands.console", Utilities.config.getStringList("default.cost.commands.console"));
                         Utilities.blocks.set(name + ".cost.commands.player", Utilities.config.getStringList("default.cost.commands.player"));
                         Utilities.blocks.set(name + ".cost.messages", Utilities.config.getStringList("default.cost.messages"));
@@ -75,6 +76,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             Utilities.blocks.set(name + ".permission.messages", Utilities.blocks.getStringList(base + ".permission.messages"));
 
                             Utilities.blocks.set(name + ".cost.value", Utilities.blocks.getDouble(base + ".cost.value"));
+                            Utilities.blocks.set(name + ".cost.bypasspermission", Utilities.blocks.getString(base + ".cost.bypasspermission"));
                             Utilities.blocks.set(name + ".cost.commands.console", Utilities.blocks.getStringList(base + ".cost.commands.console"));
                             Utilities.blocks.set(name + ".cost.commands.player", Utilities.blocks.getStringList(base + ".cost.commands.player"));
                             Utilities.blocks.set(name + ".cost.messages", Utilities.blocks.getStringList(base + ".cost.messages"));
@@ -91,7 +93,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             Utilities.reloadBlocksFile();
                             Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
                         } else {
-                            Utilities.msg(s, Strings.IGPREFIX + "&cNo CommandBlock with that name could be found to copy.");
+                            Utilities.msg(s, Strings.IGPREFIX + "&cFailed to copy. CommandBlock &f'" + name + "'&c does not exist.");
                         }
                     }
                 } else {
@@ -121,7 +123,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             block.getLocation().getBlockZ() + "#" +
                             block.getLocation().getWorld().getName();
                     if (Utilities.blocks.getConfigurationSection(name) != null || Utilities.blocks.contains(blockLocation)) {
-                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock with that name already exists.");
+                        Utilities.msg(s, Strings.IGPREFIX + "&cA CommandBlock named &f'" + name + "'&c already exists!");
                         return false;
                     }
                     if (args.length == 7) {
@@ -137,6 +139,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                         Utilities.blocks.set(name + ".permission.messages", Utilities.config.getStringList("default.permission.messages"));
 
                         Utilities.blocks.set(name + ".cost.value", Utilities.config.getDouble("default.cost.value"));
+                        Utilities.blocks.set(name + ".cost.bypasspermission", Utilities.config.getString("default.cost.bypasspermission"));
                         Utilities.blocks.set(name + ".cost.commands.console", Utilities.config.getStringList("default.cost.commands.console"));
                         Utilities.blocks.set(name + ".cost.commands.player", Utilities.config.getStringList("default.cost.commands.player"));
                         Utilities.blocks.set(name + ".cost.messages", Utilities.config.getStringList("default.cost.messages"));
@@ -167,6 +170,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             Utilities.blocks.set(name + ".permission.messages", Utilities.blocks.getStringList(base + ".permission.messages"));
 
                             Utilities.blocks.set(name + ".cost.value", Utilities.blocks.getDouble(base + ".cost.value"));
+                            Utilities.blocks.set(name + ".cost.bypasspermission", Utilities.blocks.getString(base + ".cost.bypasspermission"));
                             Utilities.blocks.set(name + ".cost.commands.console", Utilities.blocks.getStringList(base + ".cost.commands.console"));
                             Utilities.blocks.set(name + ".cost.commands.player", Utilities.blocks.getStringList(base + ".cost.commands.player"));
                             Utilities.blocks.set(name + ".cost.messages", Utilities.blocks.getStringList(base + ".cost.messages"));
@@ -183,7 +187,7 @@ public class Command_Create implements CommandExecutor, TabCompleter {
                             Utilities.reloadBlocksFile();
                             Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully created CommandBlock &6'" + name + "'&f!");
                         } else {
-                            Utilities.msg(s, Strings.IGPREFIX + "&cNo CommandBlock with that name could be found to copy.");
+                            Utilities.msg(s, Strings.IGPREFIX + "&cFailed to copy. CommandBlock &f'" + name + "'&c does not exist.");
                         }
                     }
                 } catch (NumberFormatException ex) {

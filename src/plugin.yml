@@ -31,7 +31,7 @@ permissions:
     default: op
   commandblocks.timeout.bypass:
     default: op
-  commandblocks.cost.free:
+  commandblocks.cost.bypass:
     default: false
   commandblocks.notify.update:
     default: op

@@ -98,6 +98,7 @@ public class Utilities {
         config.addDefault("default.permission.commands.player", permissionCommandsPlayer);
         config.addDefault("default.permission.messages", permissionMessages);
         config.addDefault("default.cost.value", 0);
+        config.addDefault("default.cost.bypasspermission", "commandblocks.cost.bypass");
         config.addDefault("default.cost.commands.console", costCommandsConsole);
         config.addDefault("default.cost.commands.player", costCommandsPlayer);
         config.addDefault("default.cost.messages", costMessages);

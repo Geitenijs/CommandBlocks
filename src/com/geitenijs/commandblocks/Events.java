@@ -35,8 +35,8 @@ public class Events implements Listener {
                     String permission = Utilities.blocks.getString(path + ".permission.value");
                     if (permission == null || e.getPlayer().hasPermission(permission)) {
                         Bukkit.getScheduler().runTaskLater(Main.plugin, () -> {
-                            String bypassPermission = Utilities.blocks.getString(path + ".timeout.bypasspermission");
-                            if (bypassPermission == null || !e.getPlayer().hasPermission(bypassPermission)) {
+                            String timeoutBypass = Utilities.blocks.getString(path + ".timeout.bypasspermission");
+                            if (timeoutBypass == null || !e.getPlayer().hasPermission(timeoutBypass)) {
                                 if (Utilities.timeouts.containsKey(path)) {
                                     double timeLeft = (Utilities.timeouts.get(path) / 20);
                                     int output = (int) Math.ceil(timeLeft);
@@ -67,7 +67,8 @@ public class Events implements Listener {
                             }
 
                             if (Utilities.blocks.getDouble(path + ".cost.value") != 0) {
-                                if (e.getPlayer().hasPermission("commandblocks.cost.free")) {
+                                String costBypass = Utilities.blocks.getString(path + ".cost.bypasspermission");
+                                if (costBypass != null && e.getPlayer().hasPermission(costBypass)) {
                                     passEco[0] = true;
                                 }
                                 if (!passEco[0]) {

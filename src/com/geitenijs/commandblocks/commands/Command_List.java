@@ -27,7 +27,7 @@ public class Command_List implements CommandExecutor, TabCompleter {
                 final int y = Integer.parseInt(blockCoordinates[1]);
                 final int z = Integer.parseInt(blockCoordinates[2]);
                 final String world = blockCoordinates[3];
-                Utilities.msg(s, "&fCommandBlock &9" + key + "&f at &6(" + x + ", " + y + ", " + z + ")&f in &6'" + world + "'&f.");
+                Utilities.msg(s, "&fCommandBlock &9'" + key + "'&f at &6(" + x + ", " + y + ", " + z + ")&f in &6'" + world + "'&f.");
             }
             Utilities.msg(s, Strings.LINE);
             Utilities.msg(s, Strings.IGPREFIX + "&aA total of &f" + Utilities.blocks.getKeys(false).size() + "&a CommandBlocks are currently defined.");

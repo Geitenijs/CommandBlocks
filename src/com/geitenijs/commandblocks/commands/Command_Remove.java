@@ -21,7 +21,7 @@ public class Command_Remove implements CommandExecutor, TabCompleter {
                 Utilities.reloadBlocksFile();
                 Utilities.msg(s, Strings.IGPREFIX + "&fSuccessfully deleted CommandBlock &6'" + name + "'&f.");
             } else {
-                Utilities.msg(s, Strings.IGPREFIX + "&cNo CommandBlock with that name could be found.");
+                Utilities.msg(s, Strings.IGPREFIX + "&cThere's no CommandBlock named &f'" + name + "'&c.");
             }
         } else {
             Utilities.msg(s, Strings.REMOVEUSAGE);
